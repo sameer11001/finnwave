@@ -1,15 +1,8 @@
-<<<<<<< HEAD
 # Nestjs specific
 /dist
 /node_modules
 /build
 /tmp
-=======
-# compiled output
-/dist
-/node_modules
-/build
->>>>>>> 86d45f4 (Initial commit)
 
 # Logs
 logs
@@ -20,13 +13,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-<<<<<<< HEAD
-# dotenv environment variable files
-.env
-.env.development
-.env.test
-.env.production
-=======
 # OS
 .DS_Store
 
@@ -52,17 +38,10 @@ lerna-debug.log*
 
 # dotenv environment variable files
 .env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
->>>>>>> 86d45f4 (Initial commit)
 
 # temp directory
 .temp
 .tmp
-<<<<<<< HEAD
-=======
 
 # Runtime data
 pids
@@ -72,4 +51,3 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
->>>>>>> 86d45f4 (Initial commit)
