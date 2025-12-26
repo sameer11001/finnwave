@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoreModule } from './core/core.module';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
+import { FinnWaveModule } from './modules/finnwave.module';
 
 @Module({
-  imports: [CoreModule, InfrastructureModule],
+  imports: [CoreModule, InfrastructureModule,FinnWaveModule],
   controllers: [AppController],
   providers: [AppService],
 })
