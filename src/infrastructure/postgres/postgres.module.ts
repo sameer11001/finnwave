@@ -1,7 +1,9 @@
-import { Module } from '@nestjs/common';
-import { PostgresServiceTsService } from './postgres.service.ts.service';
+import { Module, Global } from '@nestjs/common';
+import { PrismaService } from './prisma.service';
 
+@Global()
 @Module({
-  providers: [ PostgresServiceTsService]
+  providers: [PrismaService],
+  exports: [PrismaService],
 })
 export class PostgresModule {}
