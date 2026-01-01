@@ -12,4 +12,8 @@ export class UsersService extends BaseService<User> {
   async findByEmail(email: string): Promise<User | null> {
     return this.usersRepository.findByEmail(email);
   }
+
+  async findByPhone(phoneNumber: string): Promise<User | null> {
+    return this.usersRepository.findByPhone(phoneNumber);
+  }
 }

@@ -30,6 +30,7 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   fullName: string | null
   kycStatus: string | null
+  passwordHash: string | null
   kycVerifiedAt: Date | null
   status: string | null
   createdAt: Date | null
@@ -42,6 +43,7 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   fullName: string | null
   kycStatus: string | null
+  passwordHash: string | null
   kycVerifiedAt: Date | null
   status: string | null
   createdAt: Date | null
@@ -54,6 +56,7 @@ export type UserCountAggregateOutputType = {
   phone: number
   fullName: number
   kycStatus: number
+  passwordHash: number
   kycVerifiedAt: number
   status: number
   createdAt: number
@@ -68,6 +71,7 @@ export type UserMinAggregateInputType = {
   phone?: true
   fullName?: true
   kycStatus?: true
+  passwordHash?: true
   kycVerifiedAt?: true
   status?: true
   createdAt?: true
@@ -80,6 +84,7 @@ export type UserMaxAggregateInputType = {
   phone?: true
   fullName?: true
   kycStatus?: true
+  passwordHash?: true
   kycVerifiedAt?: true
   status?: true
   createdAt?: true
@@ -92,6 +97,7 @@ export type UserCountAggregateInputType = {
   phone?: true
   fullName?: true
   kycStatus?: true
+  passwordHash?: true
   kycVerifiedAt?: true
   status?: true
   createdAt?: true
@@ -177,6 +183,7 @@ export type UserGroupByOutputType = {
   phone: string | null
   fullName: string
   kycStatus: string
+  passwordHash: string
   kycVerifiedAt: Date | null
   status: string
   createdAt: Date
@@ -210,6 +217,7 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   fullName?: Prisma.StringFilter<"User"> | string
   kycStatus?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
   kycVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   status?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -222,6 +230,7 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   fullName?: Prisma.SortOrder
   kycStatus?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   kycVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -237,6 +246,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   fullName?: Prisma.StringFilter<"User"> | string
   kycStatus?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
   kycVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   status?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -249,6 +259,7 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   fullName?: Prisma.SortOrder
   kycStatus?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   kycVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -267,6 +278,7 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   fullName?: Prisma.StringWithAggregatesFilter<"User"> | string
   kycStatus?: Prisma.StringWithAggregatesFilter<"User"> | string
+  passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   kycVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   status?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -279,6 +291,7 @@ export type UserCreateInput = {
   phone?: string | null
   fullName: string
   kycStatus?: string
+  passwordHash: string
   kycVerifiedAt?: Date | string | null
   status?: string
   createdAt?: Date | string
@@ -291,6 +304,7 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   fullName: string
   kycStatus?: string
+  passwordHash: string
   kycVerifiedAt?: Date | string | null
   status?: string
   createdAt?: Date | string
@@ -303,6 +317,7 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   kycStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -315,6 +330,7 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   kycStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,6 +343,7 @@ export type UserCreateManyInput = {
   phone?: string | null
   fullName: string
   kycStatus?: string
+  passwordHash: string
   kycVerifiedAt?: Date | string | null
   status?: string
   createdAt?: Date | string
@@ -339,6 +356,7 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   kycStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -351,6 +369,7 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fullName?: Prisma.StringFieldUpdateOperationsInput | string
   kycStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   kycVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -363,6 +382,7 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   kycStatus?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   kycVerifiedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +395,7 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   kycStatus?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   kycVerifiedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -387,6 +408,7 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   fullName?: Prisma.SortOrder
   kycStatus?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   kycVerifiedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -417,6 +439,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   fullName?: boolean
   kycStatus?: boolean
+  passwordHash?: boolean
   kycVerifiedAt?: boolean
   status?: boolean
   createdAt?: boolean
@@ -429,6 +452,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   fullName?: boolean
   kycStatus?: boolean
+  passwordHash?: boolean
   kycVerifiedAt?: boolean
   status?: boolean
   createdAt?: boolean
@@ -441,6 +465,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   fullName?: boolean
   kycStatus?: boolean
+  passwordHash?: boolean
   kycVerifiedAt?: boolean
   status?: boolean
   createdAt?: boolean
@@ -453,13 +478,14 @@ export type UserSelectScalar = {
   phone?: boolean
   fullName?: boolean
   kycStatus?: boolean
+  passwordHash?: boolean
   kycVerifiedAt?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "fullName" | "kycStatus" | "kycVerifiedAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "phone" | "fullName" | "kycStatus" | "passwordHash" | "kycVerifiedAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -470,6 +496,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     fullName: string
     kycStatus: string
+    passwordHash: string
     kycVerifiedAt: Date | null
     status: string
     createdAt: Date
@@ -902,6 +929,7 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly fullName: Prisma.FieldRef<"User", 'String'>
   readonly kycStatus: Prisma.FieldRef<"User", 'String'>
+  readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly kycVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly status: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

@@ -8,9 +8,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  
-  @Post()
-  async registerUser(): Promise<string> {
-    return 'User registered successfully';
-  }
 }

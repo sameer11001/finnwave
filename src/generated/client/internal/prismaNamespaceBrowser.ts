@@ -76,6 +76,7 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   fullName: 'fullName',
   kycStatus: 'kycStatus',
+  passwordHash: 'passwordHash',
   kycVerifiedAt: 'kycVerifiedAt',
   status: 'status',
   createdAt: 'createdAt',
