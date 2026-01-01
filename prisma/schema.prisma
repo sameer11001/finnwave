@@ -19,6 +19,7 @@ model User {
   phone         String?   @unique
   fullName      String    @map("full_name")
   kycStatus     String    @default("pending") @map("kyc_status") // pending, verified, rejected
+  passwordHash  String    @map("password_hash")
   kycVerifiedAt DateTime? @map("kyc_verified_at")
   status        String    @default("active") // active, suspended, closed
   
