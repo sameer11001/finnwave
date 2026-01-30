@@ -1,8 +1,24 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { Request } from 'express';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -26,8 +42,7 @@ export class AuthController {
           properties: {
             id: { type: 'string', example: 'uuid' },
             email: { type: 'string', example: 'user@example.com' },
-            firstName: { type: 'string', example: 'John' },
-            lastName: { type: 'string', example: 'Doe' },
+            fullName: { type: 'string', example: 'John Doe' },
           },
         },
         timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' },
@@ -61,6 +76,7 @@ export class AuthController {
   async registerUser(@Body() dto: RegisterUserDto) {
     return this.authService.register(dto);
   }
+
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login an existing user' })
@@ -72,11 +88,18 @@ export class AuthController {
       properties: {
         success: { type: 'boolean', example: true },
         statusCode: { type: 'number', example: 200 },
-        message: { type: 'string', example: 'User logged in successfully' },
+        message: { type: 'string', example: 'Login successful' },
         data: {
           type: 'object',
           properties: {
-            accessToken: { type: 'string', example: 'jwt-token' },
+            accessToken: {
+              type: 'string',
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+            },
+            refreshToken: {
+              type: 'string',
+              example: '7Kj9mP3xQ8rT2vW5yZ1aB4cD6eF8gH0iJ',
+            },
           },
         },
         timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' },
@@ -92,15 +115,69 @@ export class AuthController {
         success: { type: 'boolean', example: false },
         statusCode: { type: 'number', example: 401 },
         message: { type: 'string', example: 'Invalid credentials' },
-        timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' }
+        timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' },
       },
     },
   })
-  async loginUser(@Body() dto: LoginUserDto) {
-    try {
-    return this.authService.login(dto);
-    } catch (error) {
-      throw error;
-    }
+  async loginUser(@Body() dto: LoginUserDto, @Req() req: Request) {
+    const ipAddress = req.ip || req.socket.remoteAddress;
+    const userAgent = req.headers['user-agent'];
+
+    return this.authService.login(dto, ipAddress, userAgent);
+  }
+
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Refresh access token using refresh token' })
+  @ApiResponse({
+    status: 200,
+    description: 'Token refreshed successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: true },
+        statusCode: { type: 'number', example: 200 },
+        message: { type: 'string', example: 'Token refreshed successfully' },
+        data: {
+          type: 'object',
+          properties: {
+            accessToken: {
+              type: 'string',
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+            },
+            refreshToken: {
+              type: 'string',
+              example: '7Kj9mP3xQ8rT2vW5yZ1aB4cD6eF8gH0iJ',
+            },
+          },
+        },
+        timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid or expired refresh token',
+  })
+  async refreshToken(@Body() dto: RefreshTokenDto) {
+    return this.authService.refresh(dto.refreshToken);
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Logout and revoke current session' })
+  @ApiResponse({
+    status: 200,
+    description: 'Logout successful',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+  })
+  async logout(@Req() req: any) {
+    const sessionId = req.user.sid; // Extract session ID from JWT payload
+    return this.authService.logout(sessionId);
   }
 }

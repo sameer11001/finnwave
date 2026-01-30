@@ -51,7 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Session: 'Session',
+  RefreshToken: 'RefreshToken',
+  Role: 'Role'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,12 +81,53 @@ export const UserScalarFieldEnum = {
   kycStatus: 'kycStatus',
   passwordHash: 'passwordHash',
   kycVerifiedAt: 'kycVerifiedAt',
+  passwordChangedAt: 'passwordChangedAt',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  lastActivityAt: 'lastActivityAt',
+  expiresAt: 'expiresAt',
+  revoked: 'revoked',
+  revokedAt: 'revokedAt',
+  revocationReason: 'revocationReason',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  tokenHash: 'tokenHash',
+  tokenFamily: 'tokenFamily',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  parentTokenId: 'parentTokenId'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
 export const SortOrder = {

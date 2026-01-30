@@ -9,7 +9,30 @@
 * 🟢 You can import this file directly.
 */
 
+export const KycStatus = {
+  PENDING: 'pending',
+  VERIFIED: 'verified',
+  REJECTED: 'rejected'
+} as const
+
+export type KycStatus = (typeof KycStatus)[keyof typeof KycStatus]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const UserStatus = {
+  ACTIVE: 'active',
+  SUSPENDED: 'suspended',
+  CLOSED: 'closed'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const RevocationReason = {
+  USER_LOGOUT: 'user_logout',
+  PASSWORD_CHANGE: 'password_change',
+  FRAUD: 'fraud',
+  IDLE_TIMEOUT: 'idle_timeout',
+  TOKEN_REUSE: 'token_reuse'
+} as const
+
+export type RevocationReason = (typeof RevocationReason)[keyof typeof RevocationReason]
