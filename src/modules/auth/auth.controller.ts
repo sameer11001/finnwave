@@ -1,6 +1,7 @@
 import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('Authentication')
@@ -59,5 +60,47 @@ export class AuthController {
   })
   async registerUser(@Body() dto: RegisterUserDto) {
     return this.authService.register(dto);
+  }
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Login an existing user' })
+  @ApiResponse({
+    status: 200,
+    description: 'User successfully logged in',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: true },
+        statusCode: { type: 'number', example: 200 },
+        message: { type: 'string', example: 'User logged in successfully' },
+        data: {
+          type: 'object',
+          properties: {
+            accessToken: { type: 'string', example: 'jwt-token' },
+          },
+        },
+        timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized',
+    schema: {
+      type: 'object',
+      properties: {
+        success: { type: 'boolean', example: false },
+        statusCode: { type: 'number', example: 401 },
+        message: { type: 'string', example: 'Invalid credentials' },
+        timestamp: { type: 'string', example: '2026-01-01T19:23:30.000Z' }
+      },
+    },
+  })
+  async loginUser(@Body() dto: LoginUserDto) {
+    try {
+    return this.authService.login(dto);
+    } catch (error) {
+      throw error;
+    }
   }
 }

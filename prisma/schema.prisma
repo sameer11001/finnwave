@@ -16,17 +16,39 @@ datasource db {
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
-  phone         String?   @unique
+  phone         String?   @unique //nullable
   fullName      String    @map("full_name")
   kycStatus     String    @default("pending") @map("kyc_status") // pending, verified, rejected
   passwordHash  String    @map("password_hash")
   kycVerifiedAt DateTime? @map("kyc_verified_at")
   status        String    @default("active") // active, suspended, closed
-  
+  refreshTokens RefreshToken[]
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
+
 
   @@map("users")
   @@index([email])
   @@index([kycStatus])
 }
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("refresh_tokens")
+  @@index([userId])
+}
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("roles")
+}
+
