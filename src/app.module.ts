@@ -8,11 +8,7 @@ import { FinnWaveModule } from './modules/finnwave.module';
 import { UsersController } from './modules/users/users.controller';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { RefreshTokenController } from './refresh_token/refresh_token.controller';
-import { RefreshTokenModule } from './refresh_token/refresh_token.module';
-import { RefreshTokenModule } from './refresh_token/refresh_token.module';
-import { RolesModule } from './roles/roles.module';
-import { RefreshTokenModule } from './refresh_token/refresh_token.module';
+import { RolesModule } from './modules/roles/roles.module';
 
 @Module({
   imports: [
@@ -25,10 +21,9 @@ import { RefreshTokenModule } from './refresh_token/refresh_token.module';
     FinnWaveModule,
     UsersModule,
     AuthModule,
-    RefreshTokenModule,
     RolesModule,
   ],
-  controllers: [AppController, UsersController, RefreshTokenController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}

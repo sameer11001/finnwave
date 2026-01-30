@@ -55,13 +55,8 @@ export class AuthService {
   const payload: JWTPayloadType = {email: LogUser.email, sub: LogUser.id};
   const token = await this.jwtService.sign(payload);
 
-  const refreshToken = this.jwtService.sign(payload, {
-      secret: this.configService.get<string>('REFRESH_JWT_SECRET'),
-      expiresIn: this.configService.get<string>('REFRESH_JWT_EXPIRES_IN'),
-
-    } as JwtSignOptions,);
   return ResponseBuilder.success(
-      { access_token: token, refresh_token: refreshToken },
+      { access_token: token, },
       'login successful',
       HttpStatus.OK,
     );
