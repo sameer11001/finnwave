@@ -6,28 +6,28 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 // ============================================================================
 // ENUMS
 // ============================================================================
 enum KycStatus {
-  PENDING  
-  VERIFIED  
-  REJECTED  
-
+  PENDING
+  VERIFIED
+  REJECTED
 }
 
 enum UserStatus {
-  ACTIVE    
-  SUSPENDED 
-  CLOSED    
+  ACTIVE
+  SUSPENDED
+  CLOSED
 }
 
 enum RevocationReason {
-  USER_LOGOUT  
-  PASSWORD_CHANGE 
-  FRAUD           
-  IDLE_TIMEOUT    
-  TOKEN_REUSE     
+  USER_LOGOUT
+  PASSWORD_CHANGE
+  FRAUD
+  IDLE_TIMEOUT
+  TOKEN_REUSE
 }
 
 // ============================================================================
