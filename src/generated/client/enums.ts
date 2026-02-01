@@ -10,29 +10,29 @@
 */
 
 export const KycStatus = {
-  PENDING: 'pending',
-  VERIFIED: 'verified',
-  REJECTED: 'rejected'
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
 } as const
 
 export type KycStatus = (typeof KycStatus)[keyof typeof KycStatus]
 
 
 export const UserStatus = {
-  ACTIVE: 'active',
-  SUSPENDED: 'suspended',
-  CLOSED: 'closed'
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  CLOSED: 'CLOSED'
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
 export const RevocationReason = {
-  USER_LOGOUT: 'user_logout',
-  PASSWORD_CHANGE: 'password_change',
-  FRAUD: 'fraud',
-  IDLE_TIMEOUT: 'idle_timeout',
-  TOKEN_REUSE: 'token_reuse'
+  USER_LOGOUT: 'USER_LOGOUT',
+  PASSWORD_CHANGE: 'PASSWORD_CHANGE',
+  FRAUD: 'FRAUD',
+  IDLE_TIMEOUT: 'IDLE_TIMEOUT',
+  TOKEN_REUSE: 'TOKEN_REUSE'
 } as const
 
 export type RevocationReason = (typeof RevocationReason)[keyof typeof RevocationReason]

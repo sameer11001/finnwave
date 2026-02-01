@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/client"
@@ -7,35 +6,28 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
-
 // ============================================================================
 // ENUMS
 // ============================================================================
-
 enum KycStatus {
-  PENDING   @map("pending")
-  VERIFIED  @map("verified")
-  REJECTED  @map("rejected")
+  PENDING  
+  VERIFIED  
+  REJECTED  
 
-  @@map("kyc_status_enum")
 }
 
 enum UserStatus {
-  ACTIVE    @map("active")
-  SUSPENDED @map("suspended")
-  CLOSED    @map("closed")
-
-  @@map("user_status_enum")
+  ACTIVE    
+  SUSPENDED 
+  CLOSED    
 }
 
 enum RevocationReason {
-  USER_LOGOUT     @map("user_logout")
-  PASSWORD_CHANGE @map("password_change")
-  FRAUD           @map("fraud")
-  IDLE_TIMEOUT    @map("idle_timeout")
-  TOKEN_REUSE     @map("token_reuse")
-
-  @@map("revocation_reason_enum")
+  USER_LOGOUT  
+  PASSWORD_CHANGE 
+  FRAUD           
+  IDLE_TIMEOUT    
+  TOKEN_REUSE     
 }
 
 // ============================================================================
