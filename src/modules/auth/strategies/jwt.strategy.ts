@@ -23,8 +23,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!payload.sub || !payload.sid) {
       throw new UnauthorizedException('Invalid token payload');
-    }
-
+    } 
+    
     return {
       userId: payload.sub,
       email: payload.email,

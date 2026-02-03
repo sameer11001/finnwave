@@ -10,6 +10,7 @@ export interface JwtPayload {
   sub: string;
   email: string;
   sid: string;
+  role?: string;
   iat?: number;
   exp?: number;
 }
@@ -60,18 +61,26 @@ export class TokenService {
   ): Promise<TokenPair & { userId: string; sessionId: string }> {
     return this.prisma.$transaction(async (tx) => {
       const activeTokens = await tx.refreshToken.findMany({
-        where: {
-          usedAt: null,
-          expiresAt: { gt: new Date() },
-        },
-        include: {
-          session: {
-            include: {
-              user: true,
+  where: {
+    usedAt: null,
+    expiresAt: { gt: new Date() },
+  },
+  include: {
+    session: {
+      include: {
+        user: {
+          include: {
+            role: {
+              select: {
+                name: true,
+              },
             },
           },
         },
-      });
+      },
+    },
+  },
+});
 
       let storedToken: (typeof activeTokens)[0] | null = null;
       for (const token of activeTokens) {
@@ -141,6 +150,7 @@ export class TokenService {
         sub: storedToken.session.userId,
         email: storedToken.session.user.email,
         sid: storedToken.sessionId,
+        role: storedToken.session.user.role?.name,
       });
 
       return {

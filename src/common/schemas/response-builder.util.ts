@@ -4,7 +4,7 @@ import {
   ApiErrorResponse,
   PaginatedResponse,
   PaginationMeta,
-} from '../interfaces/api-response.interface';
+} from './api-response.interface';
 
 
 export class ResponseBuilder {

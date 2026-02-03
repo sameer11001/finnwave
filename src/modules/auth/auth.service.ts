@@ -7,13 +7,15 @@ import {
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ResponseBuilder } from '../../common/utils/response-builder.util';
+import { ResponseBuilder } from '../../common/schemas/response-builder.util';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { TokenService } from './services/token.service';
 import { SessionService } from './services/session.service';
-import { RevocationReason } from '../../generated/client/client';
+import { RevocationReason, UserStatus } from '../../generated/client/client';
+import { Roles } from './guards/roles.decorators';
+import { userInfo } from 'os';
 
 @Injectable()
 export class AuthService {
@@ -74,6 +76,9 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
+    if (user.status !== UserStatus.ACTIVE) {
+      throw new UnauthorizedException('User is not active');
+    }
 
     // 2. Create session
     const session = await this.sessionService.createSession({
@@ -102,7 +107,8 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       sid: session.id,
-    });
+      role: user.role?.name,
+  });
 
     return ResponseBuilder.success(
       {
@@ -167,4 +173,5 @@ export class AuthService {
   private get prisma() {
     return (this.tokenService as any).prisma;
   }
+
 }

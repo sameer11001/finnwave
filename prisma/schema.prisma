@@ -47,7 +47,10 @@ model User {
   sessions          Session[]
   createdAt         DateTime   @default(now()) @map("created_at")
   updatedAt         DateTime   @updatedAt @map("updated_at")
+  roleId            String?    @map("role_id")
 
+  role              Role?      @relation(fields: [roleId], references: [id])
+  
   @@index([email])
   @@index([kycStatus])
   @@map("users")
@@ -104,6 +107,7 @@ model Role {
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  users     User[]
 
   @@map("roles")
 }
