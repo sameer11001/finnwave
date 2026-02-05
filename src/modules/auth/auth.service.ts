@@ -15,7 +15,7 @@ import { TokenService } from './services/token.service';
 import { SessionService } from './services/session.service';
 import { RevocationReason, UserStatus } from '../../generated/client/client';
 import { Roles } from './guards/roles.decorators';
-import { userInfo } from 'os';
+import { PrismaService } from '../../infrastructure/postgres/prisma.service';
 
 @Injectable()
 export class AuthService {
@@ -24,6 +24,7 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly sessionService: SessionService,
     private readonly configService: ConfigService,
+    private readonly prisma: PrismaService,
   ) {}
 
   async register(body_request: RegisterUserDto) {
@@ -169,9 +170,4 @@ export class AuthService {
       HttpStatus.OK,
     );
   }
-
-  private get prisma() {
-    return (this.tokenService as any).prisma;
-  }
-
 }

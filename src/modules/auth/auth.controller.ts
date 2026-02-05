@@ -19,8 +19,6 @@ import {
 } from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { Roles } from './guards/roles.decorators';
-import { Roles as RoleEnum } from '../roles/roles.enum';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -29,8 +27,6 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JwtAuthGuard)
-  @Roles([RoleEnum.ADMIN, RoleEnum.OPERATOR, RoleEnum.CUSTOMER])
   @ApiOperation({ summary: 'Register a new user' })
   @ApiResponse({
     status: 201,
@@ -83,8 +79,6 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
-  @Roles([RoleEnum.CUSTOMER, RoleEnum.ADMIN, RoleEnum.OPERATOR])
   @ApiOperation({ summary: 'Login an existing user' })
   @ApiResponse({
     status: 200,
@@ -172,7 +166,6 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
-  @Roles([RoleEnum.ADMIN])
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Logout and revoke current session' })
   @ApiResponse({
