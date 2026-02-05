@@ -33,6 +33,21 @@ export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
  * 
  */
 export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+/**
+ * Model Media
+ * 
+ */
+export type Media = $Result.DefaultSelection<Prisma.$MediaPayload>
+/**
+ * Model KycSubmission
+ * 
+ */
+export type KycSubmission = $Result.DefaultSelection<Prisma.$KycSubmissionPayload>
+/**
+ * Model KycDocument
+ * 
+ */
+export type KycDocument = $Result.DefaultSelection<Prisma.$KycDocumentPayload>
 
 /**
  * Enums
@@ -40,11 +55,60 @@ export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
 export namespace $Enums {
   export const KycStatus: {
   PENDING: 'PENDING',
-  VERIFIED: 'VERIFIED',
+  APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 };
 
 export type KycStatus = (typeof KycStatus)[keyof typeof KycStatus]
+
+
+export const MediaType: {
+  IMAGE: 'IMAGE',
+  PDF: 'PDF',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  DOCUMENT: 'DOCUMENT',
+  OTHER: 'OTHER'
+};
+
+export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+
+export const MediaCategory: {
+  KYC_DOCUMENT: 'KYC_DOCUMENT',
+  USER_AVATAR: 'USER_AVATAR',
+  TRANSACTION_RECEIPT: 'TRANSACTION_RECEIPT',
+  SUPPORT_ATTACHMENT: 'SUPPORT_ATTACHMENT',
+  PROFILE_DOCUMENT: 'PROFILE_DOCUMENT',
+  CHAT_ATTACHMENT: 'CHAT_ATTACHMENT',
+  OTHER: 'OTHER'
+};
+
+export type MediaCategory = (typeof MediaCategory)[keyof typeof MediaCategory]
+
+
+export const MediaStatus: {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+export type MediaStatus = (typeof MediaStatus)[keyof typeof MediaStatus]
+
+
+export const KycDocumentType: {
+  PASSPORT: 'PASSPORT',
+  DRIVERS_LICENSE: 'DRIVERS_LICENSE',
+  NATIONAL_ID: 'NATIONAL_ID',
+  PROOF_OF_ADDRESS_UTILITY: 'PROOF_OF_ADDRESS_UTILITY',
+  PROOF_OF_ADDRESS_BANK: 'PROOF_OF_ADDRESS_BANK',
+  PROOF_OF_ADDRESS_LEASE: 'PROOF_OF_ADDRESS_LEASE',
+  SELFIE: 'SELFIE',
+  OTHER: 'OTHER'
+};
+
+export type KycDocumentType = (typeof KycDocumentType)[keyof typeof KycDocumentType]
 
 
 export const UserStatus: {
@@ -71,6 +135,22 @@ export type RevocationReason = (typeof RevocationReason)[keyof typeof Revocation
 export type KycStatus = $Enums.KycStatus
 
 export const KycStatus: typeof $Enums.KycStatus
+
+export type MediaType = $Enums.MediaType
+
+export const MediaType: typeof $Enums.MediaType
+
+export type MediaCategory = $Enums.MediaCategory
+
+export const MediaCategory: typeof $Enums.MediaCategory
+
+export type MediaStatus = $Enums.MediaStatus
+
+export const MediaStatus: typeof $Enums.MediaStatus
+
+export type KycDocumentType = $Enums.KycDocumentType
+
+export const KycDocumentType: typeof $Enums.KycDocumentType
 
 export type UserStatus = $Enums.UserStatus
 
@@ -236,6 +316,36 @@ export class PrismaClient<
     * ```
     */
   get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.media`: Exposes CRUD operations for the **Media** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Media
+    * const media = await prisma.media.findMany()
+    * ```
+    */
+  get media(): Prisma.MediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.kycSubmission`: Exposes CRUD operations for the **KycSubmission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KycSubmissions
+    * const kycSubmissions = await prisma.kycSubmission.findMany()
+    * ```
+    */
+  get kycSubmission(): Prisma.KycSubmissionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.kycDocument`: Exposes CRUD operations for the **KycDocument** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KycDocuments
+    * const kycDocuments = await prisma.kycDocument.findMany()
+    * ```
+    */
+  get kycDocument(): Prisma.KycDocumentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -673,7 +783,10 @@ export namespace Prisma {
     User: 'User',
     Session: 'Session',
     RefreshToken: 'RefreshToken',
-    Role: 'Role'
+    Role: 'Role',
+    Media: 'Media',
+    KycSubmission: 'KycSubmission',
+    KycDocument: 'KycDocument'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -689,7 +802,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "refreshToken" | "role"
+      modelProps: "user" | "session" | "refreshToken" | "role" | "media" | "kycSubmission" | "kycDocument"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -989,6 +1102,228 @@ export namespace Prisma {
           }
         }
       }
+      Media: {
+        payload: Prisma.$MediaPayload<ExtArgs>
+        fields: Prisma.MediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          findFirst: {
+            args: Prisma.MediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          findMany: {
+            args: Prisma.MediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          create: {
+            args: Prisma.MediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          createMany: {
+            args: Prisma.MediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          delete: {
+            args: Prisma.MediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          update: {
+            args: Prisma.MediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.MediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          aggregate: {
+            args: Prisma.MediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedia>
+          }
+          groupBy: {
+            args: Prisma.MediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MediaCountArgs<ExtArgs>
+            result: $Utils.Optional<MediaCountAggregateOutputType> | number
+          }
+        }
+      }
+      KycSubmission: {
+        payload: Prisma.$KycSubmissionPayload<ExtArgs>
+        fields: Prisma.KycSubmissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KycSubmissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KycSubmissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          findFirst: {
+            args: Prisma.KycSubmissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KycSubmissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          findMany: {
+            args: Prisma.KycSubmissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>[]
+          }
+          create: {
+            args: Prisma.KycSubmissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          createMany: {
+            args: Prisma.KycSubmissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KycSubmissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>[]
+          }
+          delete: {
+            args: Prisma.KycSubmissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          update: {
+            args: Prisma.KycSubmissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.KycSubmissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KycSubmissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KycSubmissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.KycSubmissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycSubmissionPayload>
+          }
+          aggregate: {
+            args: Prisma.KycSubmissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKycSubmission>
+          }
+          groupBy: {
+            args: Prisma.KycSubmissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KycSubmissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KycSubmissionCountArgs<ExtArgs>
+            result: $Utils.Optional<KycSubmissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      KycDocument: {
+        payload: Prisma.$KycDocumentPayload<ExtArgs>
+        fields: Prisma.KycDocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KycDocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KycDocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.KycDocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KycDocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          findMany: {
+            args: Prisma.KycDocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>[]
+          }
+          create: {
+            args: Prisma.KycDocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          createMany: {
+            args: Prisma.KycDocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KycDocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.KycDocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          update: {
+            args: Prisma.KycDocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.KycDocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KycDocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KycDocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.KycDocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KycDocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.KycDocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKycDocument>
+          }
+          groupBy: {
+            args: Prisma.KycDocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KycDocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KycDocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<KycDocumentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1101,6 +1436,9 @@ export namespace Prisma {
     session?: SessionOmit
     refreshToken?: RefreshTokenOmit
     role?: RoleOmit
+    media?: MediaOmit
+    kycSubmission?: KycSubmissionOmit
+    kycDocument?: KycDocumentOmit
   }
 
   /* Types for Logging */
@@ -1182,10 +1520,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     sessions: number
+    media: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    media?: boolean | UserCountOutputTypeCountMediaArgs
   }
 
   // Custom InputTypes
@@ -1204,6 +1544,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MediaWhereInput
   }
 
 
@@ -1297,6 +1644,68 @@ export namespace Prisma {
    */
   export type RoleCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserWhereInput
+  }
+
+
+  /**
+   * Count Type MediaCountOutputType
+   */
+
+  export type MediaCountOutputType = {
+    kycDocuments: number
+  }
+
+  export type MediaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kycDocuments?: boolean | MediaCountOutputTypeCountKycDocumentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MediaCountOutputType without action
+   */
+  export type MediaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MediaCountOutputType
+     */
+    select?: MediaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MediaCountOutputType without action
+   */
+  export type MediaCountOutputTypeCountKycDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KycDocumentWhereInput
+  }
+
+
+  /**
+   * Count Type KycSubmissionCountOutputType
+   */
+
+  export type KycSubmissionCountOutputType = {
+    documents: number
+  }
+
+  export type KycSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | KycSubmissionCountOutputTypeCountDocumentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * KycSubmissionCountOutputType without action
+   */
+  export type KycSubmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmissionCountOutputType
+     */
+    select?: KycSubmissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * KycSubmissionCountOutputType without action
+   */
+  export type KycSubmissionCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KycDocumentWhereInput
   }
 
 
@@ -1526,6 +1935,8 @@ export namespace Prisma {
     roleId?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     role?: boolean | User$roleArgs<ExtArgs>
+    media?: boolean | User$mediaArgs<ExtArgs>
+    kycSubmission?: boolean | User$kycSubmissionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1580,6 +1991,8 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     role?: boolean | User$roleArgs<ExtArgs>
+    media?: boolean | User$mediaArgs<ExtArgs>
+    kycSubmission?: boolean | User$kycSubmissionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1594,6 +2007,8 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       role: Prisma.$RolePayload<ExtArgs> | null
+      media: Prisma.$MediaPayload<ExtArgs>[]
+      kycSubmission: Prisma.$KycSubmissionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2004,6 +2419,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     role<T extends User$roleArgs<ExtArgs> = {}>(args?: Subset<T, User$roleArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    media<T extends User$mediaArgs<ExtArgs> = {}>(args?: Subset<T, User$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    kycSubmission<T extends User$kycSubmissionArgs<ExtArgs> = {}>(args?: Subset<T, User$kycSubmissionArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2481,6 +2898,49 @@ export namespace Prisma {
      */
     include?: RoleInclude<ExtArgs> | null
     where?: RoleWhereInput
+  }
+
+  /**
+   * User.media
+   */
+  export type User$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    where?: MediaWhereInput
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    cursor?: MediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * User.kycSubmission
+   */
+  export type User$kycSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    where?: KycSubmissionWhereInput
   }
 
   /**
@@ -5867,6 +6327,3655 @@ export namespace Prisma {
 
 
   /**
+   * Model Media
+   */
+
+  export type AggregateMedia = {
+    _count: MediaCountAggregateOutputType | null
+    _avg: MediaAvgAggregateOutputType | null
+    _sum: MediaSumAggregateOutputType | null
+    _min: MediaMinAggregateOutputType | null
+    _max: MediaMaxAggregateOutputType | null
+  }
+
+  export type MediaAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type MediaSumAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type MediaMinAggregateOutputType = {
+    id: string | null
+    uploadedBy: string | null
+    category: $Enums.MediaCategory | null
+    type: $Enums.MediaType | null
+    status: $Enums.MediaStatus | null
+    originalFileName: string | null
+    fileSize: number | null
+    mimeType: string | null
+    encryptedPath: string | null
+    fileHash: string | null
+    verifiedAt: Date | null
+    verifiedBy: string | null
+    rejectionReason: string | null
+    uploadedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MediaMaxAggregateOutputType = {
+    id: string | null
+    uploadedBy: string | null
+    category: $Enums.MediaCategory | null
+    type: $Enums.MediaType | null
+    status: $Enums.MediaStatus | null
+    originalFileName: string | null
+    fileSize: number | null
+    mimeType: string | null
+    encryptedPath: string | null
+    fileHash: string | null
+    verifiedAt: Date | null
+    verifiedBy: string | null
+    rejectionReason: string | null
+    uploadedAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MediaCountAggregateOutputType = {
+    id: number
+    uploadedBy: number
+    category: number
+    type: number
+    status: number
+    originalFileName: number
+    fileSize: number
+    mimeType: number
+    encryptedPath: number
+    fileHash: number
+    metadata: number
+    verifiedAt: number
+    verifiedBy: number
+    rejectionReason: number
+    uploadedAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MediaAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type MediaSumAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type MediaMinAggregateInputType = {
+    id?: true
+    uploadedBy?: true
+    category?: true
+    type?: true
+    status?: true
+    originalFileName?: true
+    fileSize?: true
+    mimeType?: true
+    encryptedPath?: true
+    fileHash?: true
+    verifiedAt?: true
+    verifiedBy?: true
+    rejectionReason?: true
+    uploadedAt?: true
+    updatedAt?: true
+  }
+
+  export type MediaMaxAggregateInputType = {
+    id?: true
+    uploadedBy?: true
+    category?: true
+    type?: true
+    status?: true
+    originalFileName?: true
+    fileSize?: true
+    mimeType?: true
+    encryptedPath?: true
+    fileHash?: true
+    verifiedAt?: true
+    verifiedBy?: true
+    rejectionReason?: true
+    uploadedAt?: true
+    updatedAt?: true
+  }
+
+  export type MediaCountAggregateInputType = {
+    id?: true
+    uploadedBy?: true
+    category?: true
+    type?: true
+    status?: true
+    originalFileName?: true
+    fileSize?: true
+    mimeType?: true
+    encryptedPath?: true
+    fileHash?: true
+    metadata?: true
+    verifiedAt?: true
+    verifiedBy?: true
+    rejectionReason?: true
+    uploadedAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Media to aggregate.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Media
+    **/
+    _count?: true | MediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MediaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MediaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MediaMaxAggregateInputType
+  }
+
+  export type GetMediaAggregateType<T extends MediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedia[P]>
+      : GetScalarType<T[P], AggregateMedia[P]>
+  }
+
+
+
+
+  export type MediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MediaWhereInput
+    orderBy?: MediaOrderByWithAggregationInput | MediaOrderByWithAggregationInput[]
+    by: MediaScalarFieldEnum[] | MediaScalarFieldEnum
+    having?: MediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MediaCountAggregateInputType | true
+    _avg?: MediaAvgAggregateInputType
+    _sum?: MediaSumAggregateInputType
+    _min?: MediaMinAggregateInputType
+    _max?: MediaMaxAggregateInputType
+  }
+
+  export type MediaGroupByOutputType = {
+    id: string
+    uploadedBy: string
+    category: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata: JsonValue | null
+    verifiedAt: Date | null
+    verifiedBy: string | null
+    rejectionReason: string | null
+    uploadedAt: Date
+    updatedAt: Date
+    _count: MediaCountAggregateOutputType | null
+    _avg: MediaAvgAggregateOutputType | null
+    _sum: MediaSumAggregateOutputType | null
+    _min: MediaMinAggregateOutputType | null
+    _max: MediaMaxAggregateOutputType | null
+  }
+
+  type GetMediaGroupByPayload<T extends MediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MediaGroupByOutputType[P]>
+            : GetScalarType<T[P], MediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uploadedBy?: boolean
+    category?: boolean
+    type?: boolean
+    status?: boolean
+    originalFileName?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    encryptedPath?: boolean
+    fileHash?: boolean
+    metadata?: boolean
+    verifiedAt?: boolean
+    verifiedBy?: boolean
+    rejectionReason?: boolean
+    uploadedAt?: boolean
+    updatedAt?: boolean
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+    kycDocuments?: boolean | Media$kycDocumentsArgs<ExtArgs>
+    _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uploadedBy?: boolean
+    category?: boolean
+    type?: boolean
+    status?: boolean
+    originalFileName?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    encryptedPath?: boolean
+    fileHash?: boolean
+    metadata?: boolean
+    verifiedAt?: boolean
+    verifiedBy?: boolean
+    rejectionReason?: boolean
+    uploadedAt?: boolean
+    updatedAt?: boolean
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    uploadedBy?: boolean
+    category?: boolean
+    type?: boolean
+    status?: boolean
+    originalFileName?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    encryptedPath?: boolean
+    fileHash?: boolean
+    metadata?: boolean
+    verifiedAt?: boolean
+    verifiedBy?: boolean
+    rejectionReason?: boolean
+    uploadedAt?: boolean
+    updatedAt?: boolean
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectScalar = {
+    id?: boolean
+    uploadedBy?: boolean
+    category?: boolean
+    type?: boolean
+    status?: boolean
+    originalFileName?: boolean
+    fileSize?: boolean
+    mimeType?: boolean
+    encryptedPath?: boolean
+    fileHash?: boolean
+    metadata?: boolean
+    verifiedAt?: boolean
+    verifiedBy?: boolean
+    rejectionReason?: boolean
+    uploadedAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uploadedBy" | "category" | "type" | "status" | "originalFileName" | "fileSize" | "mimeType" | "encryptedPath" | "fileHash" | "metadata" | "verifiedAt" | "verifiedBy" | "rejectionReason" | "uploadedAt" | "updatedAt", ExtArgs["result"]["media"]>
+  export type MediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+    kycDocuments?: boolean | Media$kycDocumentsArgs<ExtArgs>
+    _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MediaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploader?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Media"
+    objects: {
+      uploader: Prisma.$UserPayload<ExtArgs>
+      kycDocuments: Prisma.$KycDocumentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      uploadedBy: string
+      category: $Enums.MediaCategory
+      type: $Enums.MediaType
+      status: $Enums.MediaStatus
+      originalFileName: string
+      fileSize: number
+      mimeType: string
+      encryptedPath: string
+      fileHash: string
+      metadata: Prisma.JsonValue | null
+      verifiedAt: Date | null
+      verifiedBy: string | null
+      rejectionReason: string | null
+      uploadedAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["media"]>
+    composites: {}
+  }
+
+  type MediaGetPayload<S extends boolean | null | undefined | MediaDefaultArgs> = $Result.GetResult<Prisma.$MediaPayload, S>
+
+  type MediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MediaCountAggregateInputType | true
+    }
+
+  export interface MediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Media'], meta: { name: 'Media' } }
+    /**
+     * Find zero or one Media that matches the filter.
+     * @param {MediaFindUniqueArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MediaFindUniqueArgs>(args: SelectSubset<T, MediaFindUniqueArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Media that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MediaFindUniqueOrThrowArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MediaFindUniqueOrThrowArgs>(args: SelectSubset<T, MediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindFirstArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MediaFindFirstArgs>(args?: SelectSubset<T, MediaFindFirstArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindFirstOrThrowArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MediaFindFirstOrThrowArgs>(args?: SelectSubset<T, MediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Media
+     * const media = await prisma.media.findMany()
+     * 
+     * // Get first 10 Media
+     * const media = await prisma.media.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mediaWithIdOnly = await prisma.media.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MediaFindManyArgs>(args?: SelectSubset<T, MediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Media.
+     * @param {MediaCreateArgs} args - Arguments to create a Media.
+     * @example
+     * // Create one Media
+     * const Media = await prisma.media.create({
+     *   data: {
+     *     // ... data to create a Media
+     *   }
+     * })
+     * 
+     */
+    create<T extends MediaCreateArgs>(args: SelectSubset<T, MediaCreateArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Media.
+     * @param {MediaCreateManyArgs} args - Arguments to create many Media.
+     * @example
+     * // Create many Media
+     * const media = await prisma.media.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MediaCreateManyArgs>(args?: SelectSubset<T, MediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Media and returns the data saved in the database.
+     * @param {MediaCreateManyAndReturnArgs} args - Arguments to create many Media.
+     * @example
+     * // Create many Media
+     * const media = await prisma.media.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Media and only return the `id`
+     * const mediaWithIdOnly = await prisma.media.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MediaCreateManyAndReturnArgs>(args?: SelectSubset<T, MediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Media.
+     * @param {MediaDeleteArgs} args - Arguments to delete one Media.
+     * @example
+     * // Delete one Media
+     * const Media = await prisma.media.delete({
+     *   where: {
+     *     // ... filter to delete one Media
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MediaDeleteArgs>(args: SelectSubset<T, MediaDeleteArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Media.
+     * @param {MediaUpdateArgs} args - Arguments to update one Media.
+     * @example
+     * // Update one Media
+     * const media = await prisma.media.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MediaUpdateArgs>(args: SelectSubset<T, MediaUpdateArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Media.
+     * @param {MediaDeleteManyArgs} args - Arguments to filter Media to delete.
+     * @example
+     * // Delete a few Media
+     * const { count } = await prisma.media.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MediaDeleteManyArgs>(args?: SelectSubset<T, MediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Media
+     * const media = await prisma.media.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MediaUpdateManyArgs>(args: SelectSubset<T, MediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media and returns the data updated in the database.
+     * @param {MediaUpdateManyAndReturnArgs} args - Arguments to update many Media.
+     * @example
+     * // Update many Media
+     * const media = await prisma.media.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Media and only return the `id`
+     * const mediaWithIdOnly = await prisma.media.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MediaUpdateManyAndReturnArgs>(args: SelectSubset<T, MediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Media.
+     * @param {MediaUpsertArgs} args - Arguments to update or create a Media.
+     * @example
+     * // Update or create a Media
+     * const media = await prisma.media.upsert({
+     *   create: {
+     *     // ... data to create a Media
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Media we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MediaUpsertArgs>(args: SelectSubset<T, MediaUpsertArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaCountArgs} args - Arguments to filter Media to count.
+     * @example
+     * // Count the number of Media
+     * const count = await prisma.media.count({
+     *   where: {
+     *     // ... the filter for the Media we want to count
+     *   }
+     * })
+    **/
+    count<T extends MediaCountArgs>(
+      args?: Subset<T, MediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MediaAggregateArgs>(args: Subset<T, MediaAggregateArgs>): Prisma.PrismaPromise<GetMediaAggregateType<T>>
+
+    /**
+     * Group by Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MediaGroupByArgs['orderBy'] }
+        : { orderBy?: MediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Media model
+   */
+  readonly fields: MediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Media.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    uploader<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    kycDocuments<T extends Media$kycDocumentsArgs<ExtArgs> = {}>(args?: Subset<T, Media$kycDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Media model
+   */
+  interface MediaFieldRefs {
+    readonly id: FieldRef<"Media", 'String'>
+    readonly uploadedBy: FieldRef<"Media", 'String'>
+    readonly category: FieldRef<"Media", 'MediaCategory'>
+    readonly type: FieldRef<"Media", 'MediaType'>
+    readonly status: FieldRef<"Media", 'MediaStatus'>
+    readonly originalFileName: FieldRef<"Media", 'String'>
+    readonly fileSize: FieldRef<"Media", 'Int'>
+    readonly mimeType: FieldRef<"Media", 'String'>
+    readonly encryptedPath: FieldRef<"Media", 'String'>
+    readonly fileHash: FieldRef<"Media", 'String'>
+    readonly metadata: FieldRef<"Media", 'Json'>
+    readonly verifiedAt: FieldRef<"Media", 'DateTime'>
+    readonly verifiedBy: FieldRef<"Media", 'String'>
+    readonly rejectionReason: FieldRef<"Media", 'String'>
+    readonly uploadedAt: FieldRef<"Media", 'DateTime'>
+    readonly updatedAt: FieldRef<"Media", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Media findUnique
+   */
+  export type MediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media findUniqueOrThrow
+   */
+  export type MediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media findFirst
+   */
+  export type MediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Media.
+     */
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media findFirstOrThrow
+   */
+  export type MediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Media.
+     */
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media findMany
+   */
+  export type MediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media create
+   */
+  export type MediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Media.
+     */
+    data: XOR<MediaCreateInput, MediaUncheckedCreateInput>
+  }
+
+  /**
+   * Media createMany
+   */
+  export type MediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Media.
+     */
+    data: MediaCreateManyInput | MediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Media createManyAndReturn
+   */
+  export type MediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Media.
+     */
+    data: MediaCreateManyInput | MediaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Media update
+   */
+  export type MediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Media.
+     */
+    data: XOR<MediaUpdateInput, MediaUncheckedUpdateInput>
+    /**
+     * Choose, which Media to update.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media updateMany
+   */
+  export type MediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Media.
+     */
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyInput>
+    /**
+     * Filter which Media to update
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Media updateManyAndReturn
+   */
+  export type MediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data used to update Media.
+     */
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyInput>
+    /**
+     * Filter which Media to update
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Media upsert
+   */
+  export type MediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Media to update in case it exists.
+     */
+    where: MediaWhereUniqueInput
+    /**
+     * In case the Media found by the `where` argument doesn't exist, create a new Media with this data.
+     */
+    create: XOR<MediaCreateInput, MediaUncheckedCreateInput>
+    /**
+     * In case the Media was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MediaUpdateInput, MediaUncheckedUpdateInput>
+  }
+
+  /**
+   * Media delete
+   */
+  export type MediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+    /**
+     * Filter which Media to delete.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media deleteMany
+   */
+  export type MediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Media to delete
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Media.kycDocuments
+   */
+  export type Media$kycDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    where?: KycDocumentWhereInput
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    cursor?: KycDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: KycDocumentScalarFieldEnum | KycDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Media without action
+   */
+  export type MediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MediaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model KycSubmission
+   */
+
+  export type AggregateKycSubmission = {
+    _count: KycSubmissionCountAggregateOutputType | null
+    _min: KycSubmissionMinAggregateOutputType | null
+    _max: KycSubmissionMaxAggregateOutputType | null
+  }
+
+  export type KycSubmissionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    firstName: string | null
+    middleName: string | null
+    lastName: string | null
+    dateOfBirth: Date | null
+    nationality: string | null
+    addressLine1: string | null
+    addressLine2: string | null
+    city: string | null
+    state: string | null
+    postalCode: string | null
+    country: string | null
+    status: $Enums.KycStatus | null
+    submittedAt: Date | null
+    reviewedAt: Date | null
+    reviewedBy: string | null
+    rejectionReason: string | null
+    ipAddress: string | null
+    userAgent: string | null
+  }
+
+  export type KycSubmissionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    firstName: string | null
+    middleName: string | null
+    lastName: string | null
+    dateOfBirth: Date | null
+    nationality: string | null
+    addressLine1: string | null
+    addressLine2: string | null
+    city: string | null
+    state: string | null
+    postalCode: string | null
+    country: string | null
+    status: $Enums.KycStatus | null
+    submittedAt: Date | null
+    reviewedAt: Date | null
+    reviewedBy: string | null
+    rejectionReason: string | null
+    ipAddress: string | null
+    userAgent: string | null
+  }
+
+  export type KycSubmissionCountAggregateOutputType = {
+    id: number
+    userId: number
+    firstName: number
+    middleName: number
+    lastName: number
+    dateOfBirth: number
+    nationality: number
+    addressLine1: number
+    addressLine2: number
+    city: number
+    state: number
+    postalCode: number
+    country: number
+    status: number
+    submittedAt: number
+    reviewedAt: number
+    reviewedBy: number
+    rejectionReason: number
+    ipAddress: number
+    userAgent: number
+    _all: number
+  }
+
+
+  export type KycSubmissionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    firstName?: true
+    middleName?: true
+    lastName?: true
+    dateOfBirth?: true
+    nationality?: true
+    addressLine1?: true
+    addressLine2?: true
+    city?: true
+    state?: true
+    postalCode?: true
+    country?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    reviewedBy?: true
+    rejectionReason?: true
+    ipAddress?: true
+    userAgent?: true
+  }
+
+  export type KycSubmissionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    firstName?: true
+    middleName?: true
+    lastName?: true
+    dateOfBirth?: true
+    nationality?: true
+    addressLine1?: true
+    addressLine2?: true
+    city?: true
+    state?: true
+    postalCode?: true
+    country?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    reviewedBy?: true
+    rejectionReason?: true
+    ipAddress?: true
+    userAgent?: true
+  }
+
+  export type KycSubmissionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    firstName?: true
+    middleName?: true
+    lastName?: true
+    dateOfBirth?: true
+    nationality?: true
+    addressLine1?: true
+    addressLine2?: true
+    city?: true
+    state?: true
+    postalCode?: true
+    country?: true
+    status?: true
+    submittedAt?: true
+    reviewedAt?: true
+    reviewedBy?: true
+    rejectionReason?: true
+    ipAddress?: true
+    userAgent?: true
+    _all?: true
+  }
+
+  export type KycSubmissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KycSubmission to aggregate.
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycSubmissions to fetch.
+     */
+    orderBy?: KycSubmissionOrderByWithRelationInput | KycSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KycSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KycSubmissions
+    **/
+    _count?: true | KycSubmissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KycSubmissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KycSubmissionMaxAggregateInputType
+  }
+
+  export type GetKycSubmissionAggregateType<T extends KycSubmissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateKycSubmission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKycSubmission[P]>
+      : GetScalarType<T[P], AggregateKycSubmission[P]>
+  }
+
+
+
+
+  export type KycSubmissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KycSubmissionWhereInput
+    orderBy?: KycSubmissionOrderByWithAggregationInput | KycSubmissionOrderByWithAggregationInput[]
+    by: KycSubmissionScalarFieldEnum[] | KycSubmissionScalarFieldEnum
+    having?: KycSubmissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KycSubmissionCountAggregateInputType | true
+    _min?: KycSubmissionMinAggregateInputType
+    _max?: KycSubmissionMaxAggregateInputType
+  }
+
+  export type KycSubmissionGroupByOutputType = {
+    id: string
+    userId: string
+    firstName: string
+    middleName: string | null
+    lastName: string
+    dateOfBirth: Date
+    nationality: string
+    addressLine1: string
+    addressLine2: string | null
+    city: string
+    state: string | null
+    postalCode: string
+    country: string
+    status: $Enums.KycStatus
+    submittedAt: Date
+    reviewedAt: Date | null
+    reviewedBy: string | null
+    rejectionReason: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    _count: KycSubmissionCountAggregateOutputType | null
+    _min: KycSubmissionMinAggregateOutputType | null
+    _max: KycSubmissionMaxAggregateOutputType | null
+  }
+
+  type GetKycSubmissionGroupByPayload<T extends KycSubmissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KycSubmissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KycSubmissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KycSubmissionGroupByOutputType[P]>
+            : GetScalarType<T[P], KycSubmissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KycSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    firstName?: boolean
+    middleName?: boolean
+    lastName?: boolean
+    dateOfBirth?: boolean
+    nationality?: boolean
+    addressLine1?: boolean
+    addressLine2?: boolean
+    city?: boolean
+    state?: boolean
+    postalCode?: boolean
+    country?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    reviewedBy?: boolean
+    rejectionReason?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    documents?: boolean | KycSubmission$documentsArgs<ExtArgs>
+    _count?: boolean | KycSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycSubmission"]>
+
+  export type KycSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    firstName?: boolean
+    middleName?: boolean
+    lastName?: boolean
+    dateOfBirth?: boolean
+    nationality?: boolean
+    addressLine1?: boolean
+    addressLine2?: boolean
+    city?: boolean
+    state?: boolean
+    postalCode?: boolean
+    country?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    reviewedBy?: boolean
+    rejectionReason?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycSubmission"]>
+
+  export type KycSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    firstName?: boolean
+    middleName?: boolean
+    lastName?: boolean
+    dateOfBirth?: boolean
+    nationality?: boolean
+    addressLine1?: boolean
+    addressLine2?: boolean
+    city?: boolean
+    state?: boolean
+    postalCode?: boolean
+    country?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    reviewedBy?: boolean
+    rejectionReason?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycSubmission"]>
+
+  export type KycSubmissionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    firstName?: boolean
+    middleName?: boolean
+    lastName?: boolean
+    dateOfBirth?: boolean
+    nationality?: boolean
+    addressLine1?: boolean
+    addressLine2?: boolean
+    city?: boolean
+    state?: boolean
+    postalCode?: boolean
+    country?: boolean
+    status?: boolean
+    submittedAt?: boolean
+    reviewedAt?: boolean
+    reviewedBy?: boolean
+    rejectionReason?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+  }
+
+  export type KycSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "firstName" | "middleName" | "lastName" | "dateOfBirth" | "nationality" | "addressLine1" | "addressLine2" | "city" | "state" | "postalCode" | "country" | "status" | "submittedAt" | "reviewedAt" | "reviewedBy" | "rejectionReason" | "ipAddress" | "userAgent", ExtArgs["result"]["kycSubmission"]>
+  export type KycSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    documents?: boolean | KycSubmission$documentsArgs<ExtArgs>
+    _count?: boolean | KycSubmissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type KycSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type KycSubmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $KycSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KycSubmission"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      documents: Prisma.$KycDocumentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      firstName: string
+      middleName: string | null
+      lastName: string
+      dateOfBirth: Date
+      nationality: string
+      addressLine1: string
+      addressLine2: string | null
+      city: string
+      state: string | null
+      postalCode: string
+      country: string
+      status: $Enums.KycStatus
+      submittedAt: Date
+      reviewedAt: Date | null
+      reviewedBy: string | null
+      rejectionReason: string | null
+      ipAddress: string | null
+      userAgent: string | null
+    }, ExtArgs["result"]["kycSubmission"]>
+    composites: {}
+  }
+
+  type KycSubmissionGetPayload<S extends boolean | null | undefined | KycSubmissionDefaultArgs> = $Result.GetResult<Prisma.$KycSubmissionPayload, S>
+
+  type KycSubmissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KycSubmissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: KycSubmissionCountAggregateInputType | true
+    }
+
+  export interface KycSubmissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KycSubmission'], meta: { name: 'KycSubmission' } }
+    /**
+     * Find zero or one KycSubmission that matches the filter.
+     * @param {KycSubmissionFindUniqueArgs} args - Arguments to find a KycSubmission
+     * @example
+     * // Get one KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KycSubmissionFindUniqueArgs>(args: SelectSubset<T, KycSubmissionFindUniqueArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one KycSubmission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KycSubmissionFindUniqueOrThrowArgs} args - Arguments to find a KycSubmission
+     * @example
+     * // Get one KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KycSubmissionFindUniqueOrThrowArgs>(args: SelectSubset<T, KycSubmissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KycSubmission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionFindFirstArgs} args - Arguments to find a KycSubmission
+     * @example
+     * // Get one KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KycSubmissionFindFirstArgs>(args?: SelectSubset<T, KycSubmissionFindFirstArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KycSubmission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionFindFirstOrThrowArgs} args - Arguments to find a KycSubmission
+     * @example
+     * // Get one KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KycSubmissionFindFirstOrThrowArgs>(args?: SelectSubset<T, KycSubmissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more KycSubmissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KycSubmissions
+     * const kycSubmissions = await prisma.kycSubmission.findMany()
+     * 
+     * // Get first 10 KycSubmissions
+     * const kycSubmissions = await prisma.kycSubmission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const kycSubmissionWithIdOnly = await prisma.kycSubmission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KycSubmissionFindManyArgs>(args?: SelectSubset<T, KycSubmissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a KycSubmission.
+     * @param {KycSubmissionCreateArgs} args - Arguments to create a KycSubmission.
+     * @example
+     * // Create one KycSubmission
+     * const KycSubmission = await prisma.kycSubmission.create({
+     *   data: {
+     *     // ... data to create a KycSubmission
+     *   }
+     * })
+     * 
+     */
+    create<T extends KycSubmissionCreateArgs>(args: SelectSubset<T, KycSubmissionCreateArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many KycSubmissions.
+     * @param {KycSubmissionCreateManyArgs} args - Arguments to create many KycSubmissions.
+     * @example
+     * // Create many KycSubmissions
+     * const kycSubmission = await prisma.kycSubmission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KycSubmissionCreateManyArgs>(args?: SelectSubset<T, KycSubmissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KycSubmissions and returns the data saved in the database.
+     * @param {KycSubmissionCreateManyAndReturnArgs} args - Arguments to create many KycSubmissions.
+     * @example
+     * // Create many KycSubmissions
+     * const kycSubmission = await prisma.kycSubmission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KycSubmissions and only return the `id`
+     * const kycSubmissionWithIdOnly = await prisma.kycSubmission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KycSubmissionCreateManyAndReturnArgs>(args?: SelectSubset<T, KycSubmissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a KycSubmission.
+     * @param {KycSubmissionDeleteArgs} args - Arguments to delete one KycSubmission.
+     * @example
+     * // Delete one KycSubmission
+     * const KycSubmission = await prisma.kycSubmission.delete({
+     *   where: {
+     *     // ... filter to delete one KycSubmission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KycSubmissionDeleteArgs>(args: SelectSubset<T, KycSubmissionDeleteArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one KycSubmission.
+     * @param {KycSubmissionUpdateArgs} args - Arguments to update one KycSubmission.
+     * @example
+     * // Update one KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KycSubmissionUpdateArgs>(args: SelectSubset<T, KycSubmissionUpdateArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more KycSubmissions.
+     * @param {KycSubmissionDeleteManyArgs} args - Arguments to filter KycSubmissions to delete.
+     * @example
+     * // Delete a few KycSubmissions
+     * const { count } = await prisma.kycSubmission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KycSubmissionDeleteManyArgs>(args?: SelectSubset<T, KycSubmissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KycSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KycSubmissions
+     * const kycSubmission = await prisma.kycSubmission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KycSubmissionUpdateManyArgs>(args: SelectSubset<T, KycSubmissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KycSubmissions and returns the data updated in the database.
+     * @param {KycSubmissionUpdateManyAndReturnArgs} args - Arguments to update many KycSubmissions.
+     * @example
+     * // Update many KycSubmissions
+     * const kycSubmission = await prisma.kycSubmission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more KycSubmissions and only return the `id`
+     * const kycSubmissionWithIdOnly = await prisma.kycSubmission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends KycSubmissionUpdateManyAndReturnArgs>(args: SelectSubset<T, KycSubmissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one KycSubmission.
+     * @param {KycSubmissionUpsertArgs} args - Arguments to update or create a KycSubmission.
+     * @example
+     * // Update or create a KycSubmission
+     * const kycSubmission = await prisma.kycSubmission.upsert({
+     *   create: {
+     *     // ... data to create a KycSubmission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KycSubmission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KycSubmissionUpsertArgs>(args: SelectSubset<T, KycSubmissionUpsertArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of KycSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionCountArgs} args - Arguments to filter KycSubmissions to count.
+     * @example
+     * // Count the number of KycSubmissions
+     * const count = await prisma.kycSubmission.count({
+     *   where: {
+     *     // ... the filter for the KycSubmissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends KycSubmissionCountArgs>(
+      args?: Subset<T, KycSubmissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KycSubmissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KycSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KycSubmissionAggregateArgs>(args: Subset<T, KycSubmissionAggregateArgs>): Prisma.PrismaPromise<GetKycSubmissionAggregateType<T>>
+
+    /**
+     * Group by KycSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycSubmissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KycSubmissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KycSubmissionGroupByArgs['orderBy'] }
+        : { orderBy?: KycSubmissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KycSubmissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKycSubmissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KycSubmission model
+   */
+  readonly fields: KycSubmissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KycSubmission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KycSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    documents<T extends KycSubmission$documentsArgs<ExtArgs> = {}>(args?: Subset<T, KycSubmission$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KycSubmission model
+   */
+  interface KycSubmissionFieldRefs {
+    readonly id: FieldRef<"KycSubmission", 'String'>
+    readonly userId: FieldRef<"KycSubmission", 'String'>
+    readonly firstName: FieldRef<"KycSubmission", 'String'>
+    readonly middleName: FieldRef<"KycSubmission", 'String'>
+    readonly lastName: FieldRef<"KycSubmission", 'String'>
+    readonly dateOfBirth: FieldRef<"KycSubmission", 'DateTime'>
+    readonly nationality: FieldRef<"KycSubmission", 'String'>
+    readonly addressLine1: FieldRef<"KycSubmission", 'String'>
+    readonly addressLine2: FieldRef<"KycSubmission", 'String'>
+    readonly city: FieldRef<"KycSubmission", 'String'>
+    readonly state: FieldRef<"KycSubmission", 'String'>
+    readonly postalCode: FieldRef<"KycSubmission", 'String'>
+    readonly country: FieldRef<"KycSubmission", 'String'>
+    readonly status: FieldRef<"KycSubmission", 'KycStatus'>
+    readonly submittedAt: FieldRef<"KycSubmission", 'DateTime'>
+    readonly reviewedAt: FieldRef<"KycSubmission", 'DateTime'>
+    readonly reviewedBy: FieldRef<"KycSubmission", 'String'>
+    readonly rejectionReason: FieldRef<"KycSubmission", 'String'>
+    readonly ipAddress: FieldRef<"KycSubmission", 'String'>
+    readonly userAgent: FieldRef<"KycSubmission", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KycSubmission findUnique
+   */
+  export type KycSubmissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which KycSubmission to fetch.
+     */
+    where: KycSubmissionWhereUniqueInput
+  }
+
+  /**
+   * KycSubmission findUniqueOrThrow
+   */
+  export type KycSubmissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which KycSubmission to fetch.
+     */
+    where: KycSubmissionWhereUniqueInput
+  }
+
+  /**
+   * KycSubmission findFirst
+   */
+  export type KycSubmissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which KycSubmission to fetch.
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycSubmissions to fetch.
+     */
+    orderBy?: KycSubmissionOrderByWithRelationInput | KycSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KycSubmissions.
+     */
+    cursor?: KycSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KycSubmissions.
+     */
+    distinct?: KycSubmissionScalarFieldEnum | KycSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * KycSubmission findFirstOrThrow
+   */
+  export type KycSubmissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which KycSubmission to fetch.
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycSubmissions to fetch.
+     */
+    orderBy?: KycSubmissionOrderByWithRelationInput | KycSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KycSubmissions.
+     */
+    cursor?: KycSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KycSubmissions.
+     */
+    distinct?: KycSubmissionScalarFieldEnum | KycSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * KycSubmission findMany
+   */
+  export type KycSubmissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which KycSubmissions to fetch.
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycSubmissions to fetch.
+     */
+    orderBy?: KycSubmissionOrderByWithRelationInput | KycSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KycSubmissions.
+     */
+    cursor?: KycSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycSubmissions.
+     */
+    skip?: number
+    distinct?: KycSubmissionScalarFieldEnum | KycSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * KycSubmission create
+   */
+  export type KycSubmissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a KycSubmission.
+     */
+    data: XOR<KycSubmissionCreateInput, KycSubmissionUncheckedCreateInput>
+  }
+
+  /**
+   * KycSubmission createMany
+   */
+  export type KycSubmissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KycSubmissions.
+     */
+    data: KycSubmissionCreateManyInput | KycSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KycSubmission createManyAndReturn
+   */
+  export type KycSubmissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many KycSubmissions.
+     */
+    data: KycSubmissionCreateManyInput | KycSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * KycSubmission update
+   */
+  export type KycSubmissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a KycSubmission.
+     */
+    data: XOR<KycSubmissionUpdateInput, KycSubmissionUncheckedUpdateInput>
+    /**
+     * Choose, which KycSubmission to update.
+     */
+    where: KycSubmissionWhereUniqueInput
+  }
+
+  /**
+   * KycSubmission updateMany
+   */
+  export type KycSubmissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KycSubmissions.
+     */
+    data: XOR<KycSubmissionUpdateManyMutationInput, KycSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which KycSubmissions to update
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * Limit how many KycSubmissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KycSubmission updateManyAndReturn
+   */
+  export type KycSubmissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to update KycSubmissions.
+     */
+    data: XOR<KycSubmissionUpdateManyMutationInput, KycSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which KycSubmissions to update
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * Limit how many KycSubmissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * KycSubmission upsert
+   */
+  export type KycSubmissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the KycSubmission to update in case it exists.
+     */
+    where: KycSubmissionWhereUniqueInput
+    /**
+     * In case the KycSubmission found by the `where` argument doesn't exist, create a new KycSubmission with this data.
+     */
+    create: XOR<KycSubmissionCreateInput, KycSubmissionUncheckedCreateInput>
+    /**
+     * In case the KycSubmission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KycSubmissionUpdateInput, KycSubmissionUncheckedUpdateInput>
+  }
+
+  /**
+   * KycSubmission delete
+   */
+  export type KycSubmissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter which KycSubmission to delete.
+     */
+    where: KycSubmissionWhereUniqueInput
+  }
+
+  /**
+   * KycSubmission deleteMany
+   */
+  export type KycSubmissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KycSubmissions to delete
+     */
+    where?: KycSubmissionWhereInput
+    /**
+     * Limit how many KycSubmissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * KycSubmission.documents
+   */
+  export type KycSubmission$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    where?: KycDocumentWhereInput
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    cursor?: KycDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: KycDocumentScalarFieldEnum | KycDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * KycSubmission without action
+   */
+  export type KycSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycSubmission
+     */
+    select?: KycSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycSubmission
+     */
+    omit?: KycSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycSubmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model KycDocument
+   */
+
+  export type AggregateKycDocument = {
+    _count: KycDocumentCountAggregateOutputType | null
+    _min: KycDocumentMinAggregateOutputType | null
+    _max: KycDocumentMaxAggregateOutputType | null
+  }
+
+  export type KycDocumentMinAggregateOutputType = {
+    id: string | null
+    kycSubmissionId: string | null
+    mediaId: string | null
+    documentType: $Enums.KycDocumentType | null
+    documentNumber: string | null
+    expiryDate: Date | null
+    issuingCountry: string | null
+    createdAt: Date | null
+  }
+
+  export type KycDocumentMaxAggregateOutputType = {
+    id: string | null
+    kycSubmissionId: string | null
+    mediaId: string | null
+    documentType: $Enums.KycDocumentType | null
+    documentNumber: string | null
+    expiryDate: Date | null
+    issuingCountry: string | null
+    createdAt: Date | null
+  }
+
+  export type KycDocumentCountAggregateOutputType = {
+    id: number
+    kycSubmissionId: number
+    mediaId: number
+    documentType: number
+    documentNumber: number
+    expiryDate: number
+    issuingCountry: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type KycDocumentMinAggregateInputType = {
+    id?: true
+    kycSubmissionId?: true
+    mediaId?: true
+    documentType?: true
+    documentNumber?: true
+    expiryDate?: true
+    issuingCountry?: true
+    createdAt?: true
+  }
+
+  export type KycDocumentMaxAggregateInputType = {
+    id?: true
+    kycSubmissionId?: true
+    mediaId?: true
+    documentType?: true
+    documentNumber?: true
+    expiryDate?: true
+    issuingCountry?: true
+    createdAt?: true
+  }
+
+  export type KycDocumentCountAggregateInputType = {
+    id?: true
+    kycSubmissionId?: true
+    mediaId?: true
+    documentType?: true
+    documentNumber?: true
+    expiryDate?: true
+    issuingCountry?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type KycDocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KycDocument to aggregate.
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycDocuments to fetch.
+     */
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KycDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KycDocuments
+    **/
+    _count?: true | KycDocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KycDocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KycDocumentMaxAggregateInputType
+  }
+
+  export type GetKycDocumentAggregateType<T extends KycDocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateKycDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKycDocument[P]>
+      : GetScalarType<T[P], AggregateKycDocument[P]>
+  }
+
+
+
+
+  export type KycDocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KycDocumentWhereInput
+    orderBy?: KycDocumentOrderByWithAggregationInput | KycDocumentOrderByWithAggregationInput[]
+    by: KycDocumentScalarFieldEnum[] | KycDocumentScalarFieldEnum
+    having?: KycDocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KycDocumentCountAggregateInputType | true
+    _min?: KycDocumentMinAggregateInputType
+    _max?: KycDocumentMaxAggregateInputType
+  }
+
+  export type KycDocumentGroupByOutputType = {
+    id: string
+    kycSubmissionId: string
+    mediaId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber: string | null
+    expiryDate: Date | null
+    issuingCountry: string | null
+    createdAt: Date
+    _count: KycDocumentCountAggregateOutputType | null
+    _min: KycDocumentMinAggregateOutputType | null
+    _max: KycDocumentMaxAggregateOutputType | null
+  }
+
+  type GetKycDocumentGroupByPayload<T extends KycDocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KycDocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KycDocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KycDocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], KycDocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KycDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kycSubmissionId?: boolean
+    mediaId?: boolean
+    documentType?: boolean
+    documentNumber?: boolean
+    expiryDate?: boolean
+    issuingCountry?: boolean
+    createdAt?: boolean
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycDocument"]>
+
+  export type KycDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kycSubmissionId?: boolean
+    mediaId?: boolean
+    documentType?: boolean
+    documentNumber?: boolean
+    expiryDate?: boolean
+    issuingCountry?: boolean
+    createdAt?: boolean
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycDocument"]>
+
+  export type KycDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kycSubmissionId?: boolean
+    mediaId?: boolean
+    documentType?: boolean
+    documentNumber?: boolean
+    expiryDate?: boolean
+    issuingCountry?: boolean
+    createdAt?: boolean
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kycDocument"]>
+
+  export type KycDocumentSelectScalar = {
+    id?: boolean
+    kycSubmissionId?: boolean
+    mediaId?: boolean
+    documentType?: boolean
+    documentNumber?: boolean
+    expiryDate?: boolean
+    issuingCountry?: boolean
+    createdAt?: boolean
+  }
+
+  export type KycDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "kycSubmissionId" | "mediaId" | "documentType" | "documentNumber" | "expiryDate" | "issuingCountry" | "createdAt", ExtArgs["result"]["kycDocument"]>
+  export type KycDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+  export type KycDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+  export type KycDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kycSubmission?: boolean | KycSubmissionDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+
+  export type $KycDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KycDocument"
+    objects: {
+      kycSubmission: Prisma.$KycSubmissionPayload<ExtArgs>
+      media: Prisma.$MediaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      kycSubmissionId: string
+      mediaId: string
+      documentType: $Enums.KycDocumentType
+      documentNumber: string | null
+      expiryDate: Date | null
+      issuingCountry: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["kycDocument"]>
+    composites: {}
+  }
+
+  type KycDocumentGetPayload<S extends boolean | null | undefined | KycDocumentDefaultArgs> = $Result.GetResult<Prisma.$KycDocumentPayload, S>
+
+  type KycDocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KycDocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: KycDocumentCountAggregateInputType | true
+    }
+
+  export interface KycDocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KycDocument'], meta: { name: 'KycDocument' } }
+    /**
+     * Find zero or one KycDocument that matches the filter.
+     * @param {KycDocumentFindUniqueArgs} args - Arguments to find a KycDocument
+     * @example
+     * // Get one KycDocument
+     * const kycDocument = await prisma.kycDocument.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KycDocumentFindUniqueArgs>(args: SelectSubset<T, KycDocumentFindUniqueArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one KycDocument that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KycDocumentFindUniqueOrThrowArgs} args - Arguments to find a KycDocument
+     * @example
+     * // Get one KycDocument
+     * const kycDocument = await prisma.kycDocument.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KycDocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, KycDocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KycDocument that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentFindFirstArgs} args - Arguments to find a KycDocument
+     * @example
+     * // Get one KycDocument
+     * const kycDocument = await prisma.kycDocument.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KycDocumentFindFirstArgs>(args?: SelectSubset<T, KycDocumentFindFirstArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first KycDocument that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentFindFirstOrThrowArgs} args - Arguments to find a KycDocument
+     * @example
+     * // Get one KycDocument
+     * const kycDocument = await prisma.kycDocument.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KycDocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, KycDocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more KycDocuments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KycDocuments
+     * const kycDocuments = await prisma.kycDocument.findMany()
+     * 
+     * // Get first 10 KycDocuments
+     * const kycDocuments = await prisma.kycDocument.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const kycDocumentWithIdOnly = await prisma.kycDocument.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KycDocumentFindManyArgs>(args?: SelectSubset<T, KycDocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a KycDocument.
+     * @param {KycDocumentCreateArgs} args - Arguments to create a KycDocument.
+     * @example
+     * // Create one KycDocument
+     * const KycDocument = await prisma.kycDocument.create({
+     *   data: {
+     *     // ... data to create a KycDocument
+     *   }
+     * })
+     * 
+     */
+    create<T extends KycDocumentCreateArgs>(args: SelectSubset<T, KycDocumentCreateArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many KycDocuments.
+     * @param {KycDocumentCreateManyArgs} args - Arguments to create many KycDocuments.
+     * @example
+     * // Create many KycDocuments
+     * const kycDocument = await prisma.kycDocument.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KycDocumentCreateManyArgs>(args?: SelectSubset<T, KycDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KycDocuments and returns the data saved in the database.
+     * @param {KycDocumentCreateManyAndReturnArgs} args - Arguments to create many KycDocuments.
+     * @example
+     * // Create many KycDocuments
+     * const kycDocument = await prisma.kycDocument.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KycDocuments and only return the `id`
+     * const kycDocumentWithIdOnly = await prisma.kycDocument.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KycDocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, KycDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a KycDocument.
+     * @param {KycDocumentDeleteArgs} args - Arguments to delete one KycDocument.
+     * @example
+     * // Delete one KycDocument
+     * const KycDocument = await prisma.kycDocument.delete({
+     *   where: {
+     *     // ... filter to delete one KycDocument
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KycDocumentDeleteArgs>(args: SelectSubset<T, KycDocumentDeleteArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one KycDocument.
+     * @param {KycDocumentUpdateArgs} args - Arguments to update one KycDocument.
+     * @example
+     * // Update one KycDocument
+     * const kycDocument = await prisma.kycDocument.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KycDocumentUpdateArgs>(args: SelectSubset<T, KycDocumentUpdateArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more KycDocuments.
+     * @param {KycDocumentDeleteManyArgs} args - Arguments to filter KycDocuments to delete.
+     * @example
+     * // Delete a few KycDocuments
+     * const { count } = await prisma.kycDocument.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KycDocumentDeleteManyArgs>(args?: SelectSubset<T, KycDocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KycDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KycDocuments
+     * const kycDocument = await prisma.kycDocument.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KycDocumentUpdateManyArgs>(args: SelectSubset<T, KycDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KycDocuments and returns the data updated in the database.
+     * @param {KycDocumentUpdateManyAndReturnArgs} args - Arguments to update many KycDocuments.
+     * @example
+     * // Update many KycDocuments
+     * const kycDocument = await prisma.kycDocument.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more KycDocuments and only return the `id`
+     * const kycDocumentWithIdOnly = await prisma.kycDocument.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends KycDocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, KycDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one KycDocument.
+     * @param {KycDocumentUpsertArgs} args - Arguments to update or create a KycDocument.
+     * @example
+     * // Update or create a KycDocument
+     * const kycDocument = await prisma.kycDocument.upsert({
+     *   create: {
+     *     // ... data to create a KycDocument
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KycDocument we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KycDocumentUpsertArgs>(args: SelectSubset<T, KycDocumentUpsertArgs<ExtArgs>>): Prisma__KycDocumentClient<$Result.GetResult<Prisma.$KycDocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of KycDocuments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentCountArgs} args - Arguments to filter KycDocuments to count.
+     * @example
+     * // Count the number of KycDocuments
+     * const count = await prisma.kycDocument.count({
+     *   where: {
+     *     // ... the filter for the KycDocuments we want to count
+     *   }
+     * })
+    **/
+    count<T extends KycDocumentCountArgs>(
+      args?: Subset<T, KycDocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KycDocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KycDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KycDocumentAggregateArgs>(args: Subset<T, KycDocumentAggregateArgs>): Prisma.PrismaPromise<GetKycDocumentAggregateType<T>>
+
+    /**
+     * Group by KycDocument.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KycDocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KycDocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KycDocumentGroupByArgs['orderBy'] }
+        : { orderBy?: KycDocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KycDocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKycDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KycDocument model
+   */
+  readonly fields: KycDocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KycDocument.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KycDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    kycSubmission<T extends KycSubmissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KycSubmissionDefaultArgs<ExtArgs>>): Prisma__KycSubmissionClient<$Result.GetResult<Prisma.$KycSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    media<T extends MediaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MediaDefaultArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KycDocument model
+   */
+  interface KycDocumentFieldRefs {
+    readonly id: FieldRef<"KycDocument", 'String'>
+    readonly kycSubmissionId: FieldRef<"KycDocument", 'String'>
+    readonly mediaId: FieldRef<"KycDocument", 'String'>
+    readonly documentType: FieldRef<"KycDocument", 'KycDocumentType'>
+    readonly documentNumber: FieldRef<"KycDocument", 'String'>
+    readonly expiryDate: FieldRef<"KycDocument", 'DateTime'>
+    readonly issuingCountry: FieldRef<"KycDocument", 'String'>
+    readonly createdAt: FieldRef<"KycDocument", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KycDocument findUnique
+   */
+  export type KycDocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which KycDocument to fetch.
+     */
+    where: KycDocumentWhereUniqueInput
+  }
+
+  /**
+   * KycDocument findUniqueOrThrow
+   */
+  export type KycDocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which KycDocument to fetch.
+     */
+    where: KycDocumentWhereUniqueInput
+  }
+
+  /**
+   * KycDocument findFirst
+   */
+  export type KycDocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which KycDocument to fetch.
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycDocuments to fetch.
+     */
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KycDocuments.
+     */
+    cursor?: KycDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KycDocuments.
+     */
+    distinct?: KycDocumentScalarFieldEnum | KycDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * KycDocument findFirstOrThrow
+   */
+  export type KycDocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which KycDocument to fetch.
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycDocuments to fetch.
+     */
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KycDocuments.
+     */
+    cursor?: KycDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycDocuments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KycDocuments.
+     */
+    distinct?: KycDocumentScalarFieldEnum | KycDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * KycDocument findMany
+   */
+  export type KycDocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which KycDocuments to fetch.
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KycDocuments to fetch.
+     */
+    orderBy?: KycDocumentOrderByWithRelationInput | KycDocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KycDocuments.
+     */
+    cursor?: KycDocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KycDocuments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KycDocuments.
+     */
+    skip?: number
+    distinct?: KycDocumentScalarFieldEnum | KycDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * KycDocument create
+   */
+  export type KycDocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a KycDocument.
+     */
+    data: XOR<KycDocumentCreateInput, KycDocumentUncheckedCreateInput>
+  }
+
+  /**
+   * KycDocument createMany
+   */
+  export type KycDocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KycDocuments.
+     */
+    data: KycDocumentCreateManyInput | KycDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KycDocument createManyAndReturn
+   */
+  export type KycDocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many KycDocuments.
+     */
+    data: KycDocumentCreateManyInput | KycDocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * KycDocument update
+   */
+  export type KycDocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a KycDocument.
+     */
+    data: XOR<KycDocumentUpdateInput, KycDocumentUncheckedUpdateInput>
+    /**
+     * Choose, which KycDocument to update.
+     */
+    where: KycDocumentWhereUniqueInput
+  }
+
+  /**
+   * KycDocument updateMany
+   */
+  export type KycDocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KycDocuments.
+     */
+    data: XOR<KycDocumentUpdateManyMutationInput, KycDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which KycDocuments to update
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * Limit how many KycDocuments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * KycDocument updateManyAndReturn
+   */
+  export type KycDocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update KycDocuments.
+     */
+    data: XOR<KycDocumentUpdateManyMutationInput, KycDocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which KycDocuments to update
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * Limit how many KycDocuments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * KycDocument upsert
+   */
+  export type KycDocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the KycDocument to update in case it exists.
+     */
+    where: KycDocumentWhereUniqueInput
+    /**
+     * In case the KycDocument found by the `where` argument doesn't exist, create a new KycDocument with this data.
+     */
+    create: XOR<KycDocumentCreateInput, KycDocumentUncheckedCreateInput>
+    /**
+     * In case the KycDocument was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KycDocumentUpdateInput, KycDocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * KycDocument delete
+   */
+  export type KycDocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+    /**
+     * Filter which KycDocument to delete.
+     */
+    where: KycDocumentWhereUniqueInput
+  }
+
+  /**
+   * KycDocument deleteMany
+   */
+  export type KycDocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KycDocuments to delete
+     */
+    where?: KycDocumentWhereInput
+    /**
+     * Limit how many KycDocuments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * KycDocument without action
+   */
+  export type KycDocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KycDocument
+     */
+    select?: KycDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KycDocument
+     */
+    omit?: KycDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KycDocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5938,12 +10047,82 @@ export namespace Prisma {
   export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
+  export const MediaScalarFieldEnum: {
+    id: 'id',
+    uploadedBy: 'uploadedBy',
+    category: 'category',
+    type: 'type',
+    status: 'status',
+    originalFileName: 'originalFileName',
+    fileSize: 'fileSize',
+    mimeType: 'mimeType',
+    encryptedPath: 'encryptedPath',
+    fileHash: 'fileHash',
+    metadata: 'metadata',
+    verifiedAt: 'verifiedAt',
+    verifiedBy: 'verifiedBy',
+    rejectionReason: 'rejectionReason',
+    uploadedAt: 'uploadedAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
+
+
+  export const KycSubmissionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    firstName: 'firstName',
+    middleName: 'middleName',
+    lastName: 'lastName',
+    dateOfBirth: 'dateOfBirth',
+    nationality: 'nationality',
+    addressLine1: 'addressLine1',
+    addressLine2: 'addressLine2',
+    city: 'city',
+    state: 'state',
+    postalCode: 'postalCode',
+    country: 'country',
+    status: 'status',
+    submittedAt: 'submittedAt',
+    reviewedAt: 'reviewedAt',
+    reviewedBy: 'reviewedBy',
+    rejectionReason: 'rejectionReason',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent'
+  };
+
+  export type KycSubmissionScalarFieldEnum = (typeof KycSubmissionScalarFieldEnum)[keyof typeof KycSubmissionScalarFieldEnum]
+
+
+  export const KycDocumentScalarFieldEnum: {
+    id: 'id',
+    kycSubmissionId: 'kycSubmissionId',
+    mediaId: 'mediaId',
+    documentType: 'documentType',
+    documentNumber: 'documentNumber',
+    expiryDate: 'expiryDate',
+    issuingCountry: 'issuingCountry',
+    createdAt: 'createdAt'
+  };
+
+  export type KycDocumentScalarFieldEnum = (typeof KycDocumentScalarFieldEnum)[keyof typeof KycDocumentScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -5960,6 +10139,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -6045,6 +10233,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'MediaCategory'
+   */
+  export type EnumMediaCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaCategory[]'
+   */
+  export type ListEnumMediaCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaType'
+   */
+  export type EnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaType[]'
+   */
+  export type ListEnumMediaTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaStatus'
+   */
+  export type EnumMediaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaStatus[]'
+   */
+  export type ListEnumMediaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -6055,6 +10285,48 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'KycDocumentType'
+   */
+  export type EnumKycDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycDocumentType'>
+    
+
+
+  /**
+   * Reference to a field of type 'KycDocumentType[]'
+   */
+  export type ListEnumKycDocumentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KycDocumentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -6079,6 +10351,8 @@ export namespace Prisma {
     roleId?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
+    media?: MediaListRelationFilter
+    kycSubmission?: XOR<KycSubmissionNullableScalarRelationFilter, KycSubmissionWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -6096,6 +10370,8 @@ export namespace Prisma {
     roleId?: SortOrderInput | SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     role?: RoleOrderByWithRelationInput
+    media?: MediaOrderByRelationAggregateInput
+    kycSubmission?: KycSubmissionOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -6116,6 +10392,8 @@ export namespace Prisma {
     roleId?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
     role?: XOR<RoleNullableScalarRelationFilter, RoleWhereInput> | null
+    media?: MediaListRelationFilter
+    kycSubmission?: XOR<KycSubmissionNullableScalarRelationFilter, KycSubmissionWhereInput> | null
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -6363,6 +10641,328 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
   }
 
+  export type MediaWhereInput = {
+    AND?: MediaWhereInput | MediaWhereInput[]
+    OR?: MediaWhereInput[]
+    NOT?: MediaWhereInput | MediaWhereInput[]
+    id?: StringFilter<"Media"> | string
+    uploadedBy?: StringFilter<"Media"> | string
+    category?: EnumMediaCategoryFilter<"Media"> | $Enums.MediaCategory
+    type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
+    status?: EnumMediaStatusFilter<"Media"> | $Enums.MediaStatus
+    originalFileName?: StringFilter<"Media"> | string
+    fileSize?: IntFilter<"Media"> | number
+    mimeType?: StringFilter<"Media"> | string
+    encryptedPath?: StringFilter<"Media"> | string
+    fileHash?: StringFilter<"Media"> | string
+    metadata?: JsonNullableFilter<"Media">
+    verifiedAt?: DateTimeNullableFilter<"Media"> | Date | string | null
+    verifiedBy?: StringNullableFilter<"Media"> | string | null
+    rejectionReason?: StringNullableFilter<"Media"> | string | null
+    uploadedAt?: DateTimeFilter<"Media"> | Date | string
+    updatedAt?: DateTimeFilter<"Media"> | Date | string
+    uploader?: XOR<UserScalarRelationFilter, UserWhereInput>
+    kycDocuments?: KycDocumentListRelationFilter
+  }
+
+  export type MediaOrderByWithRelationInput = {
+    id?: SortOrder
+    uploadedBy?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    originalFileName?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    encryptedPath?: SortOrder
+    fileHash?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    verifiedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    uploadedAt?: SortOrder
+    updatedAt?: SortOrder
+    uploader?: UserOrderByWithRelationInput
+    kycDocuments?: KycDocumentOrderByRelationAggregateInput
+  }
+
+  export type MediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    encryptedPath?: string
+    AND?: MediaWhereInput | MediaWhereInput[]
+    OR?: MediaWhereInput[]
+    NOT?: MediaWhereInput | MediaWhereInput[]
+    uploadedBy?: StringFilter<"Media"> | string
+    category?: EnumMediaCategoryFilter<"Media"> | $Enums.MediaCategory
+    type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
+    status?: EnumMediaStatusFilter<"Media"> | $Enums.MediaStatus
+    originalFileName?: StringFilter<"Media"> | string
+    fileSize?: IntFilter<"Media"> | number
+    mimeType?: StringFilter<"Media"> | string
+    fileHash?: StringFilter<"Media"> | string
+    metadata?: JsonNullableFilter<"Media">
+    verifiedAt?: DateTimeNullableFilter<"Media"> | Date | string | null
+    verifiedBy?: StringNullableFilter<"Media"> | string | null
+    rejectionReason?: StringNullableFilter<"Media"> | string | null
+    uploadedAt?: DateTimeFilter<"Media"> | Date | string
+    updatedAt?: DateTimeFilter<"Media"> | Date | string
+    uploader?: XOR<UserScalarRelationFilter, UserWhereInput>
+    kycDocuments?: KycDocumentListRelationFilter
+  }, "id" | "encryptedPath">
+
+  export type MediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    uploadedBy?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    originalFileName?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    encryptedPath?: SortOrder
+    fileHash?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    verifiedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    uploadedAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MediaCountOrderByAggregateInput
+    _avg?: MediaAvgOrderByAggregateInput
+    _max?: MediaMaxOrderByAggregateInput
+    _min?: MediaMinOrderByAggregateInput
+    _sum?: MediaSumOrderByAggregateInput
+  }
+
+  export type MediaScalarWhereWithAggregatesInput = {
+    AND?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
+    OR?: MediaScalarWhereWithAggregatesInput[]
+    NOT?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Media"> | string
+    uploadedBy?: StringWithAggregatesFilter<"Media"> | string
+    category?: EnumMediaCategoryWithAggregatesFilter<"Media"> | $Enums.MediaCategory
+    type?: EnumMediaTypeWithAggregatesFilter<"Media"> | $Enums.MediaType
+    status?: EnumMediaStatusWithAggregatesFilter<"Media"> | $Enums.MediaStatus
+    originalFileName?: StringWithAggregatesFilter<"Media"> | string
+    fileSize?: IntWithAggregatesFilter<"Media"> | number
+    mimeType?: StringWithAggregatesFilter<"Media"> | string
+    encryptedPath?: StringWithAggregatesFilter<"Media"> | string
+    fileHash?: StringWithAggregatesFilter<"Media"> | string
+    metadata?: JsonNullableWithAggregatesFilter<"Media">
+    verifiedAt?: DateTimeNullableWithAggregatesFilter<"Media"> | Date | string | null
+    verifiedBy?: StringNullableWithAggregatesFilter<"Media"> | string | null
+    rejectionReason?: StringNullableWithAggregatesFilter<"Media"> | string | null
+    uploadedAt?: DateTimeWithAggregatesFilter<"Media"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Media"> | Date | string
+  }
+
+  export type KycSubmissionWhereInput = {
+    AND?: KycSubmissionWhereInput | KycSubmissionWhereInput[]
+    OR?: KycSubmissionWhereInput[]
+    NOT?: KycSubmissionWhereInput | KycSubmissionWhereInput[]
+    id?: StringFilter<"KycSubmission"> | string
+    userId?: StringFilter<"KycSubmission"> | string
+    firstName?: StringFilter<"KycSubmission"> | string
+    middleName?: StringNullableFilter<"KycSubmission"> | string | null
+    lastName?: StringFilter<"KycSubmission"> | string
+    dateOfBirth?: DateTimeFilter<"KycSubmission"> | Date | string
+    nationality?: StringFilter<"KycSubmission"> | string
+    addressLine1?: StringFilter<"KycSubmission"> | string
+    addressLine2?: StringNullableFilter<"KycSubmission"> | string | null
+    city?: StringFilter<"KycSubmission"> | string
+    state?: StringNullableFilter<"KycSubmission"> | string | null
+    postalCode?: StringFilter<"KycSubmission"> | string
+    country?: StringFilter<"KycSubmission"> | string
+    status?: EnumKycStatusFilter<"KycSubmission"> | $Enums.KycStatus
+    submittedAt?: DateTimeFilter<"KycSubmission"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"KycSubmission"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"KycSubmission"> | string | null
+    rejectionReason?: StringNullableFilter<"KycSubmission"> | string | null
+    ipAddress?: StringNullableFilter<"KycSubmission"> | string | null
+    userAgent?: StringNullableFilter<"KycSubmission"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    documents?: KycDocumentListRelationFilter
+  }
+
+  export type KycSubmissionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    firstName?: SortOrder
+    middleName?: SortOrderInput | SortOrder
+    lastName?: SortOrder
+    dateOfBirth?: SortOrder
+    nationality?: SortOrder
+    addressLine1?: SortOrder
+    addressLine2?: SortOrderInput | SortOrder
+    city?: SortOrder
+    state?: SortOrderInput | SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    documents?: KycDocumentOrderByRelationAggregateInput
+  }
+
+  export type KycSubmissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: KycSubmissionWhereInput | KycSubmissionWhereInput[]
+    OR?: KycSubmissionWhereInput[]
+    NOT?: KycSubmissionWhereInput | KycSubmissionWhereInput[]
+    firstName?: StringFilter<"KycSubmission"> | string
+    middleName?: StringNullableFilter<"KycSubmission"> | string | null
+    lastName?: StringFilter<"KycSubmission"> | string
+    dateOfBirth?: DateTimeFilter<"KycSubmission"> | Date | string
+    nationality?: StringFilter<"KycSubmission"> | string
+    addressLine1?: StringFilter<"KycSubmission"> | string
+    addressLine2?: StringNullableFilter<"KycSubmission"> | string | null
+    city?: StringFilter<"KycSubmission"> | string
+    state?: StringNullableFilter<"KycSubmission"> | string | null
+    postalCode?: StringFilter<"KycSubmission"> | string
+    country?: StringFilter<"KycSubmission"> | string
+    status?: EnumKycStatusFilter<"KycSubmission"> | $Enums.KycStatus
+    submittedAt?: DateTimeFilter<"KycSubmission"> | Date | string
+    reviewedAt?: DateTimeNullableFilter<"KycSubmission"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"KycSubmission"> | string | null
+    rejectionReason?: StringNullableFilter<"KycSubmission"> | string | null
+    ipAddress?: StringNullableFilter<"KycSubmission"> | string | null
+    userAgent?: StringNullableFilter<"KycSubmission"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    documents?: KycDocumentListRelationFilter
+  }, "id" | "userId">
+
+  export type KycSubmissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    firstName?: SortOrder
+    middleName?: SortOrderInput | SortOrder
+    lastName?: SortOrder
+    dateOfBirth?: SortOrder
+    nationality?: SortOrder
+    addressLine1?: SortOrder
+    addressLine2?: SortOrderInput | SortOrder
+    city?: SortOrder
+    state?: SortOrderInput | SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrderInput | SortOrder
+    reviewedBy?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    _count?: KycSubmissionCountOrderByAggregateInput
+    _max?: KycSubmissionMaxOrderByAggregateInput
+    _min?: KycSubmissionMinOrderByAggregateInput
+  }
+
+  export type KycSubmissionScalarWhereWithAggregatesInput = {
+    AND?: KycSubmissionScalarWhereWithAggregatesInput | KycSubmissionScalarWhereWithAggregatesInput[]
+    OR?: KycSubmissionScalarWhereWithAggregatesInput[]
+    NOT?: KycSubmissionScalarWhereWithAggregatesInput | KycSubmissionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"KycSubmission"> | string
+    userId?: StringWithAggregatesFilter<"KycSubmission"> | string
+    firstName?: StringWithAggregatesFilter<"KycSubmission"> | string
+    middleName?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    lastName?: StringWithAggregatesFilter<"KycSubmission"> | string
+    dateOfBirth?: DateTimeWithAggregatesFilter<"KycSubmission"> | Date | string
+    nationality?: StringWithAggregatesFilter<"KycSubmission"> | string
+    addressLine1?: StringWithAggregatesFilter<"KycSubmission"> | string
+    addressLine2?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    city?: StringWithAggregatesFilter<"KycSubmission"> | string
+    state?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    postalCode?: StringWithAggregatesFilter<"KycSubmission"> | string
+    country?: StringWithAggregatesFilter<"KycSubmission"> | string
+    status?: EnumKycStatusWithAggregatesFilter<"KycSubmission"> | $Enums.KycStatus
+    submittedAt?: DateTimeWithAggregatesFilter<"KycSubmission"> | Date | string
+    reviewedAt?: DateTimeNullableWithAggregatesFilter<"KycSubmission"> | Date | string | null
+    reviewedBy?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    rejectionReason?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+    userAgent?: StringNullableWithAggregatesFilter<"KycSubmission"> | string | null
+  }
+
+  export type KycDocumentWhereInput = {
+    AND?: KycDocumentWhereInput | KycDocumentWhereInput[]
+    OR?: KycDocumentWhereInput[]
+    NOT?: KycDocumentWhereInput | KycDocumentWhereInput[]
+    id?: StringFilter<"KycDocument"> | string
+    kycSubmissionId?: StringFilter<"KycDocument"> | string
+    mediaId?: StringFilter<"KycDocument"> | string
+    documentType?: EnumKycDocumentTypeFilter<"KycDocument"> | $Enums.KycDocumentType
+    documentNumber?: StringNullableFilter<"KycDocument"> | string | null
+    expiryDate?: DateTimeNullableFilter<"KycDocument"> | Date | string | null
+    issuingCountry?: StringNullableFilter<"KycDocument"> | string | null
+    createdAt?: DateTimeFilter<"KycDocument"> | Date | string
+    kycSubmission?: XOR<KycSubmissionScalarRelationFilter, KycSubmissionWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
+  }
+
+  export type KycDocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    kycSubmissionId?: SortOrder
+    mediaId?: SortOrder
+    documentType?: SortOrder
+    documentNumber?: SortOrderInput | SortOrder
+    expiryDate?: SortOrderInput | SortOrder
+    issuingCountry?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    kycSubmission?: KycSubmissionOrderByWithRelationInput
+    media?: MediaOrderByWithRelationInput
+  }
+
+  export type KycDocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    kycSubmissionId_documentType?: KycDocumentKycSubmissionIdDocumentTypeCompoundUniqueInput
+    AND?: KycDocumentWhereInput | KycDocumentWhereInput[]
+    OR?: KycDocumentWhereInput[]
+    NOT?: KycDocumentWhereInput | KycDocumentWhereInput[]
+    kycSubmissionId?: StringFilter<"KycDocument"> | string
+    mediaId?: StringFilter<"KycDocument"> | string
+    documentType?: EnumKycDocumentTypeFilter<"KycDocument"> | $Enums.KycDocumentType
+    documentNumber?: StringNullableFilter<"KycDocument"> | string | null
+    expiryDate?: DateTimeNullableFilter<"KycDocument"> | Date | string | null
+    issuingCountry?: StringNullableFilter<"KycDocument"> | string | null
+    createdAt?: DateTimeFilter<"KycDocument"> | Date | string
+    kycSubmission?: XOR<KycSubmissionScalarRelationFilter, KycSubmissionWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
+  }, "id" | "kycSubmissionId_documentType">
+
+  export type KycDocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    kycSubmissionId?: SortOrder
+    mediaId?: SortOrder
+    documentType?: SortOrder
+    documentNumber?: SortOrderInput | SortOrder
+    expiryDate?: SortOrderInput | SortOrder
+    issuingCountry?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: KycDocumentCountOrderByAggregateInput
+    _max?: KycDocumentMaxOrderByAggregateInput
+    _min?: KycDocumentMinOrderByAggregateInput
+  }
+
+  export type KycDocumentScalarWhereWithAggregatesInput = {
+    AND?: KycDocumentScalarWhereWithAggregatesInput | KycDocumentScalarWhereWithAggregatesInput[]
+    OR?: KycDocumentScalarWhereWithAggregatesInput[]
+    NOT?: KycDocumentScalarWhereWithAggregatesInput | KycDocumentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"KycDocument"> | string
+    kycSubmissionId?: StringWithAggregatesFilter<"KycDocument"> | string
+    mediaId?: StringWithAggregatesFilter<"KycDocument"> | string
+    documentType?: EnumKycDocumentTypeWithAggregatesFilter<"KycDocument"> | $Enums.KycDocumentType
+    documentNumber?: StringNullableWithAggregatesFilter<"KycDocument"> | string | null
+    expiryDate?: DateTimeNullableWithAggregatesFilter<"KycDocument"> | Date | string | null
+    issuingCountry?: StringNullableWithAggregatesFilter<"KycDocument"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"KycDocument"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -6377,6 +10977,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     role?: RoleCreateNestedOneWithoutUsersInput
+    media?: MediaCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -6393,6 +10995,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     roleId?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -6409,6 +11013,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     role?: RoleUpdateOneWithoutUsersNestedInput
+    media?: MediaUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -6425,6 +11031,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roleId?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -6697,6 +11305,381 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MediaCreateInput = {
+    id?: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploader: UserCreateNestedOneWithoutMediaInput
+    kycDocuments?: KycDocumentCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaUncheckedCreateInput = {
+    id?: string
+    uploadedBy: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    kycDocuments?: KycDocumentUncheckedCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploader?: UserUpdateOneRequiredWithoutMediaNestedInput
+    kycDocuments?: KycDocumentUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kycDocuments?: KycDocumentUncheckedUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaCreateManyInput = {
+    id?: string
+    uploadedBy: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MediaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycSubmissionCreateInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    user: UserCreateNestedOneWithoutKycSubmissionInput
+    documents?: KycDocumentCreateNestedManyWithoutKycSubmissionInput
+  }
+
+  export type KycSubmissionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    documents?: KycDocumentUncheckedCreateNestedManyWithoutKycSubmissionInput
+  }
+
+  export type KycSubmissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutKycSubmissionNestedInput
+    documents?: KycDocumentUpdateManyWithoutKycSubmissionNestedInput
+  }
+
+  export type KycSubmissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: KycDocumentUncheckedUpdateManyWithoutKycSubmissionNestedInput
+  }
+
+  export type KycSubmissionCreateManyInput = {
+    id?: string
+    userId: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+  }
+
+  export type KycSubmissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type KycSubmissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type KycDocumentCreateInput = {
+    id?: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+    kycSubmission: KycSubmissionCreateNestedOneWithoutDocumentsInput
+    media: MediaCreateNestedOneWithoutKycDocumentsInput
+  }
+
+  export type KycDocumentUncheckedCreateInput = {
+    id?: string
+    kycSubmissionId: string
+    mediaId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kycSubmission?: KycSubmissionUpdateOneRequiredWithoutDocumentsNestedInput
+    media?: MediaUpdateOneRequiredWithoutKycDocumentsNestedInput
+  }
+
+  export type KycDocumentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kycSubmissionId?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentCreateManyInput = {
+    id?: string
+    kycSubmissionId: string
+    mediaId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kycSubmissionId?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6774,12 +11757,27 @@ export namespace Prisma {
     isNot?: RoleWhereInput | null
   }
 
+  export type MediaListRelationFilter = {
+    every?: MediaWhereInput
+    some?: MediaWhereInput
+    none?: MediaWhereInput
+  }
+
+  export type KycSubmissionNullableScalarRelationFilter = {
+    is?: KycSubmissionWhereInput | null
+    isNot?: KycSubmissionWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MediaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7070,6 +12068,340 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumMediaCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaCategory | EnumMediaCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaCategoryFilter<$PrismaModel> | $Enums.MediaCategory
+  }
+
+  export type EnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type EnumMediaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusFilter<$PrismaModel> | $Enums.MediaStatus
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type KycDocumentListRelationFilter = {
+    every?: KycDocumentWhereInput
+    some?: KycDocumentWhereInput
+    none?: KycDocumentWhereInput
+  }
+
+  export type KycDocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    uploadedBy?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    originalFileName?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    encryptedPath?: SortOrder
+    fileHash?: SortOrder
+    metadata?: SortOrder
+    verifiedAt?: SortOrder
+    verifiedBy?: SortOrder
+    rejectionReason?: SortOrder
+    uploadedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MediaAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type MediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    uploadedBy?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    originalFileName?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    encryptedPath?: SortOrder
+    fileHash?: SortOrder
+    verifiedAt?: SortOrder
+    verifiedBy?: SortOrder
+    rejectionReason?: SortOrder
+    uploadedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    uploadedBy?: SortOrder
+    category?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    originalFileName?: SortOrder
+    fileSize?: SortOrder
+    mimeType?: SortOrder
+    encryptedPath?: SortOrder
+    fileHash?: SortOrder
+    verifiedAt?: SortOrder
+    verifiedBy?: SortOrder
+    rejectionReason?: SortOrder
+    uploadedAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MediaSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type EnumMediaCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaCategory | EnumMediaCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaCategoryWithAggregatesFilter<$PrismaModel> | $Enums.MediaCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaCategoryFilter<$PrismaModel>
+    _max?: NestedEnumMediaCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type EnumMediaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel> | $Enums.MediaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaStatusFilter<$PrismaModel>
+    _max?: NestedEnumMediaStatusFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type KycSubmissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    firstName?: SortOrder
+    middleName?: SortOrder
+    lastName?: SortOrder
+    dateOfBirth?: SortOrder
+    nationality?: SortOrder
+    addressLine1?: SortOrder
+    addressLine2?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedBy?: SortOrder
+    rejectionReason?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+  }
+
+  export type KycSubmissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    firstName?: SortOrder
+    middleName?: SortOrder
+    lastName?: SortOrder
+    dateOfBirth?: SortOrder
+    nationality?: SortOrder
+    addressLine1?: SortOrder
+    addressLine2?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedBy?: SortOrder
+    rejectionReason?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+  }
+
+  export type KycSubmissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    firstName?: SortOrder
+    middleName?: SortOrder
+    lastName?: SortOrder
+    dateOfBirth?: SortOrder
+    nationality?: SortOrder
+    addressLine1?: SortOrder
+    addressLine2?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    status?: SortOrder
+    submittedAt?: SortOrder
+    reviewedAt?: SortOrder
+    reviewedBy?: SortOrder
+    rejectionReason?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+  }
+
+  export type EnumKycDocumentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.KycDocumentType | EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumKycDocumentTypeFilter<$PrismaModel> | $Enums.KycDocumentType
+  }
+
+  export type KycSubmissionScalarRelationFilter = {
+    is?: KycSubmissionWhereInput
+    isNot?: KycSubmissionWhereInput
+  }
+
+  export type MediaScalarRelationFilter = {
+    is?: MediaWhereInput
+    isNot?: MediaWhereInput
+  }
+
+  export type KycDocumentKycSubmissionIdDocumentTypeCompoundUniqueInput = {
+    kycSubmissionId: string
+    documentType: $Enums.KycDocumentType
+  }
+
+  export type KycDocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    kycSubmissionId?: SortOrder
+    mediaId?: SortOrder
+    documentType?: SortOrder
+    documentNumber?: SortOrder
+    expiryDate?: SortOrder
+    issuingCountry?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KycDocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    kycSubmissionId?: SortOrder
+    mediaId?: SortOrder
+    documentType?: SortOrder
+    documentNumber?: SortOrder
+    expiryDate?: SortOrder
+    issuingCountry?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type KycDocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    kycSubmissionId?: SortOrder
+    mediaId?: SortOrder
+    documentType?: SortOrder
+    documentNumber?: SortOrder
+    expiryDate?: SortOrder
+    issuingCountry?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumKycDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.KycDocumentType | EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.KycDocumentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKycDocumentTypeFilter<$PrismaModel>
+    _max?: NestedEnumKycDocumentTypeFilter<$PrismaModel>
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -7083,11 +12415,37 @@ export namespace Prisma {
     connect?: RoleWhereUniqueInput
   }
 
+  export type MediaCreateNestedManyWithoutUploaderInput = {
+    create?: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput> | MediaCreateWithoutUploaderInput[] | MediaUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutUploaderInput | MediaCreateOrConnectWithoutUploaderInput[]
+    createMany?: MediaCreateManyUploaderInputEnvelope
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
+  export type KycSubmissionCreateNestedOneWithoutUserInput = {
+    create?: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutUserInput
+    connect?: KycSubmissionWhereUniqueInput
+  }
+
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type MediaUncheckedCreateNestedManyWithoutUploaderInput = {
+    create?: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput> | MediaCreateWithoutUploaderInput[] | MediaUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutUploaderInput | MediaCreateOrConnectWithoutUploaderInput[]
+    createMany?: MediaCreateManyUploaderInputEnvelope
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+  }
+
+  export type KycSubmissionUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutUserInput
+    connect?: KycSubmissionWhereUniqueInput
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7138,6 +12496,30 @@ export namespace Prisma {
     update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutUsersInput, RoleUpdateWithoutUsersInput>, RoleUncheckedUpdateWithoutUsersInput>
   }
 
+  export type MediaUpdateManyWithoutUploaderNestedInput = {
+    create?: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput> | MediaCreateWithoutUploaderInput[] | MediaUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutUploaderInput | MediaCreateOrConnectWithoutUploaderInput[]
+    upsert?: MediaUpsertWithWhereUniqueWithoutUploaderInput | MediaUpsertWithWhereUniqueWithoutUploaderInput[]
+    createMany?: MediaCreateManyUploaderInputEnvelope
+    set?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    disconnect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    delete?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    update?: MediaUpdateWithWhereUniqueWithoutUploaderInput | MediaUpdateWithWhereUniqueWithoutUploaderInput[]
+    updateMany?: MediaUpdateManyWithWhereWithoutUploaderInput | MediaUpdateManyWithWhereWithoutUploaderInput[]
+    deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
+  }
+
+  export type KycSubmissionUpdateOneWithoutUserNestedInput = {
+    create?: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutUserInput
+    upsert?: KycSubmissionUpsertWithoutUserInput
+    disconnect?: KycSubmissionWhereInput | boolean
+    delete?: KycSubmissionWhereInput | boolean
+    connect?: KycSubmissionWhereUniqueInput
+    update?: XOR<XOR<KycSubmissionUpdateToOneWithWhereWithoutUserInput, KycSubmissionUpdateWithoutUserInput>, KycSubmissionUncheckedUpdateWithoutUserInput>
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -7150,6 +12532,30 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type MediaUncheckedUpdateManyWithoutUploaderNestedInput = {
+    create?: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput> | MediaCreateWithoutUploaderInput[] | MediaUncheckedCreateWithoutUploaderInput[]
+    connectOrCreate?: MediaCreateOrConnectWithoutUploaderInput | MediaCreateOrConnectWithoutUploaderInput[]
+    upsert?: MediaUpsertWithWhereUniqueWithoutUploaderInput | MediaUpsertWithWhereUniqueWithoutUploaderInput[]
+    createMany?: MediaCreateManyUploaderInputEnvelope
+    set?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    disconnect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    delete?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    connect?: MediaWhereUniqueInput | MediaWhereUniqueInput[]
+    update?: MediaUpdateWithWhereUniqueWithoutUploaderInput | MediaUpdateWithWhereUniqueWithoutUploaderInput[]
+    updateMany?: MediaUpdateManyWithWhereWithoutUploaderInput | MediaUpdateManyWithWhereWithoutUploaderInput[]
+    deleteMany?: MediaScalarWhereInput | MediaScalarWhereInput[]
+  }
+
+  export type KycSubmissionUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutUserInput
+    upsert?: KycSubmissionUpsertWithoutUserInput
+    disconnect?: KycSubmissionWhereInput | boolean
+    delete?: KycSubmissionWhereInput | boolean
+    connect?: KycSubmissionWhereUniqueInput
+    update?: XOR<XOR<KycSubmissionUpdateToOneWithWhereWithoutUserInput, KycSubmissionUpdateWithoutUserInput>, KycSubmissionUncheckedUpdateWithoutUserInput>
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -7328,6 +12734,170 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutRoleInput | UserUpdateWithWhereUniqueWithoutRoleInput[]
     updateMany?: UserUpdateManyWithWhereWithoutRoleInput | UserUpdateManyWithWhereWithoutRoleInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMediaInput = {
+    create?: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMediaInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type KycDocumentCreateNestedManyWithoutMediaInput = {
+    create?: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput> | KycDocumentCreateWithoutMediaInput[] | KycDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutMediaInput | KycDocumentCreateOrConnectWithoutMediaInput[]
+    createMany?: KycDocumentCreateManyMediaInputEnvelope
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+  }
+
+  export type KycDocumentUncheckedCreateNestedManyWithoutMediaInput = {
+    create?: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput> | KycDocumentCreateWithoutMediaInput[] | KycDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutMediaInput | KycDocumentCreateOrConnectWithoutMediaInput[]
+    createMany?: KycDocumentCreateManyMediaInputEnvelope
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+  }
+
+  export type EnumMediaCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.MediaCategory
+  }
+
+  export type EnumMediaTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MediaType
+  }
+
+  export type EnumMediaStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MediaStatus
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMediaInput
+    upsert?: UserUpsertWithoutMediaInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMediaInput, UserUpdateWithoutMediaInput>, UserUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type KycDocumentUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput> | KycDocumentCreateWithoutMediaInput[] | KycDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutMediaInput | KycDocumentCreateOrConnectWithoutMediaInput[]
+    upsert?: KycDocumentUpsertWithWhereUniqueWithoutMediaInput | KycDocumentUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: KycDocumentCreateManyMediaInputEnvelope
+    set?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    disconnect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    delete?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    update?: KycDocumentUpdateWithWhereUniqueWithoutMediaInput | KycDocumentUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: KycDocumentUpdateManyWithWhereWithoutMediaInput | KycDocumentUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+  }
+
+  export type KycDocumentUncheckedUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput> | KycDocumentCreateWithoutMediaInput[] | KycDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutMediaInput | KycDocumentCreateOrConnectWithoutMediaInput[]
+    upsert?: KycDocumentUpsertWithWhereUniqueWithoutMediaInput | KycDocumentUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: KycDocumentCreateManyMediaInputEnvelope
+    set?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    disconnect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    delete?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    update?: KycDocumentUpdateWithWhereUniqueWithoutMediaInput | KycDocumentUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: KycDocumentUpdateManyWithWhereWithoutMediaInput | KycDocumentUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutKycSubmissionInput = {
+    create?: XOR<UserCreateWithoutKycSubmissionInput, UserUncheckedCreateWithoutKycSubmissionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutKycSubmissionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type KycDocumentCreateNestedManyWithoutKycSubmissionInput = {
+    create?: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput> | KycDocumentCreateWithoutKycSubmissionInput[] | KycDocumentUncheckedCreateWithoutKycSubmissionInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutKycSubmissionInput | KycDocumentCreateOrConnectWithoutKycSubmissionInput[]
+    createMany?: KycDocumentCreateManyKycSubmissionInputEnvelope
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+  }
+
+  export type KycDocumentUncheckedCreateNestedManyWithoutKycSubmissionInput = {
+    create?: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput> | KycDocumentCreateWithoutKycSubmissionInput[] | KycDocumentUncheckedCreateWithoutKycSubmissionInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutKycSubmissionInput | KycDocumentCreateOrConnectWithoutKycSubmissionInput[]
+    createMany?: KycDocumentCreateManyKycSubmissionInputEnvelope
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutKycSubmissionNestedInput = {
+    create?: XOR<UserCreateWithoutKycSubmissionInput, UserUncheckedCreateWithoutKycSubmissionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutKycSubmissionInput
+    upsert?: UserUpsertWithoutKycSubmissionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutKycSubmissionInput, UserUpdateWithoutKycSubmissionInput>, UserUncheckedUpdateWithoutKycSubmissionInput>
+  }
+
+  export type KycDocumentUpdateManyWithoutKycSubmissionNestedInput = {
+    create?: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput> | KycDocumentCreateWithoutKycSubmissionInput[] | KycDocumentUncheckedCreateWithoutKycSubmissionInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutKycSubmissionInput | KycDocumentCreateOrConnectWithoutKycSubmissionInput[]
+    upsert?: KycDocumentUpsertWithWhereUniqueWithoutKycSubmissionInput | KycDocumentUpsertWithWhereUniqueWithoutKycSubmissionInput[]
+    createMany?: KycDocumentCreateManyKycSubmissionInputEnvelope
+    set?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    disconnect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    delete?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    update?: KycDocumentUpdateWithWhereUniqueWithoutKycSubmissionInput | KycDocumentUpdateWithWhereUniqueWithoutKycSubmissionInput[]
+    updateMany?: KycDocumentUpdateManyWithWhereWithoutKycSubmissionInput | KycDocumentUpdateManyWithWhereWithoutKycSubmissionInput[]
+    deleteMany?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+  }
+
+  export type KycDocumentUncheckedUpdateManyWithoutKycSubmissionNestedInput = {
+    create?: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput> | KycDocumentCreateWithoutKycSubmissionInput[] | KycDocumentUncheckedCreateWithoutKycSubmissionInput[]
+    connectOrCreate?: KycDocumentCreateOrConnectWithoutKycSubmissionInput | KycDocumentCreateOrConnectWithoutKycSubmissionInput[]
+    upsert?: KycDocumentUpsertWithWhereUniqueWithoutKycSubmissionInput | KycDocumentUpsertWithWhereUniqueWithoutKycSubmissionInput[]
+    createMany?: KycDocumentCreateManyKycSubmissionInputEnvelope
+    set?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    disconnect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    delete?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    connect?: KycDocumentWhereUniqueInput | KycDocumentWhereUniqueInput[]
+    update?: KycDocumentUpdateWithWhereUniqueWithoutKycSubmissionInput | KycDocumentUpdateWithWhereUniqueWithoutKycSubmissionInput[]
+    updateMany?: KycDocumentUpdateManyWithWhereWithoutKycSubmissionInput | KycDocumentUpdateManyWithWhereWithoutKycSubmissionInput[]
+    deleteMany?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+  }
+
+  export type KycSubmissionCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<KycSubmissionCreateWithoutDocumentsInput, KycSubmissionUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutDocumentsInput
+    connect?: KycSubmissionWhereUniqueInput
+  }
+
+  export type MediaCreateNestedOneWithoutKycDocumentsInput = {
+    create?: XOR<MediaCreateWithoutKycDocumentsInput, MediaUncheckedCreateWithoutKycDocumentsInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutKycDocumentsInput
+    connect?: MediaWhereUniqueInput
+  }
+
+  export type EnumKycDocumentTypeFieldUpdateOperationsInput = {
+    set?: $Enums.KycDocumentType
+  }
+
+  export type KycSubmissionUpdateOneRequiredWithoutDocumentsNestedInput = {
+    create?: XOR<KycSubmissionCreateWithoutDocumentsInput, KycSubmissionUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: KycSubmissionCreateOrConnectWithoutDocumentsInput
+    upsert?: KycSubmissionUpsertWithoutDocumentsInput
+    connect?: KycSubmissionWhereUniqueInput
+    update?: XOR<XOR<KycSubmissionUpdateToOneWithWhereWithoutDocumentsInput, KycSubmissionUpdateWithoutDocumentsInput>, KycSubmissionUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type MediaUpdateOneRequiredWithoutKycDocumentsNestedInput = {
+    create?: XOR<MediaCreateWithoutKycDocumentsInput, MediaUncheckedCreateWithoutKycDocumentsInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutKycDocumentsInput
+    upsert?: MediaUpsertWithoutKycDocumentsInput
+    connect?: MediaWhereUniqueInput
+    update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutKycDocumentsInput, MediaUpdateWithoutKycDocumentsInput>, MediaUncheckedUpdateWithoutKycDocumentsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7528,6 +13098,124 @@ export namespace Prisma {
     _max?: NestedEnumRevocationReasonNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumMediaCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaCategory | EnumMediaCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaCategoryFilter<$PrismaModel> | $Enums.MediaCategory
+  }
+
+  export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeFilter<$PrismaModel> | $Enums.MediaType
+  }
+
+  export type NestedEnumMediaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusFilter<$PrismaModel> | $Enums.MediaStatus
+  }
+
+  export type NestedEnumMediaCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaCategory | EnumMediaCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaCategory[] | ListEnumMediaCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaCategoryWithAggregatesFilter<$PrismaModel> | $Enums.MediaCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaCategoryFilter<$PrismaModel>
+    _max?: NestedEnumMediaCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaType | EnumMediaTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaType[] | ListEnumMediaTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaTypeWithAggregatesFilter<$PrismaModel> | $Enums.MediaType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaTypeFilter<$PrismaModel>
+    _max?: NestedEnumMediaTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel> | $Enums.MediaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaStatusFilter<$PrismaModel>
+    _max?: NestedEnumMediaStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumKycDocumentTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.KycDocumentType | EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumKycDocumentTypeFilter<$PrismaModel> | $Enums.KycDocumentType
+  }
+
+  export type NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.KycDocumentType | EnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KycDocumentType[] | ListEnumKycDocumentTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumKycDocumentTypeWithAggregatesFilter<$PrismaModel> | $Enums.KycDocumentType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKycDocumentTypeFilter<$PrismaModel>
+    _max?: NestedEnumKycDocumentTypeFilter<$PrismaModel>
+  }
+
   export type SessionCreateWithoutUserInput = {
     id?: string
     createdAt?: Date | string
@@ -7581,6 +13269,105 @@ export namespace Prisma {
   export type RoleCreateOrConnectWithoutUsersInput = {
     where: RoleWhereUniqueInput
     create: XOR<RoleCreateWithoutUsersInput, RoleUncheckedCreateWithoutUsersInput>
+  }
+
+  export type MediaCreateWithoutUploaderInput = {
+    id?: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    kycDocuments?: KycDocumentCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaUncheckedCreateWithoutUploaderInput = {
+    id?: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    kycDocuments?: KycDocumentUncheckedCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaCreateOrConnectWithoutUploaderInput = {
+    where: MediaWhereUniqueInput
+    create: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput>
+  }
+
+  export type MediaCreateManyUploaderInputEnvelope = {
+    data: MediaCreateManyUploaderInput | MediaCreateManyUploaderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type KycSubmissionCreateWithoutUserInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    documents?: KycDocumentCreateNestedManyWithoutKycSubmissionInput
+  }
+
+  export type KycSubmissionUncheckedCreateWithoutUserInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    documents?: KycDocumentUncheckedCreateNestedManyWithoutKycSubmissionInput
+  }
+
+  export type KycSubmissionCreateOrConnectWithoutUserInput = {
+    where: KycSubmissionWhereUniqueInput
+    create: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
   }
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -7640,6 +13427,101 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MediaUpsertWithWhereUniqueWithoutUploaderInput = {
+    where: MediaWhereUniqueInput
+    update: XOR<MediaUpdateWithoutUploaderInput, MediaUncheckedUpdateWithoutUploaderInput>
+    create: XOR<MediaCreateWithoutUploaderInput, MediaUncheckedCreateWithoutUploaderInput>
+  }
+
+  export type MediaUpdateWithWhereUniqueWithoutUploaderInput = {
+    where: MediaWhereUniqueInput
+    data: XOR<MediaUpdateWithoutUploaderInput, MediaUncheckedUpdateWithoutUploaderInput>
+  }
+
+  export type MediaUpdateManyWithWhereWithoutUploaderInput = {
+    where: MediaScalarWhereInput
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyWithoutUploaderInput>
+  }
+
+  export type MediaScalarWhereInput = {
+    AND?: MediaScalarWhereInput | MediaScalarWhereInput[]
+    OR?: MediaScalarWhereInput[]
+    NOT?: MediaScalarWhereInput | MediaScalarWhereInput[]
+    id?: StringFilter<"Media"> | string
+    uploadedBy?: StringFilter<"Media"> | string
+    category?: EnumMediaCategoryFilter<"Media"> | $Enums.MediaCategory
+    type?: EnumMediaTypeFilter<"Media"> | $Enums.MediaType
+    status?: EnumMediaStatusFilter<"Media"> | $Enums.MediaStatus
+    originalFileName?: StringFilter<"Media"> | string
+    fileSize?: IntFilter<"Media"> | number
+    mimeType?: StringFilter<"Media"> | string
+    encryptedPath?: StringFilter<"Media"> | string
+    fileHash?: StringFilter<"Media"> | string
+    metadata?: JsonNullableFilter<"Media">
+    verifiedAt?: DateTimeNullableFilter<"Media"> | Date | string | null
+    verifiedBy?: StringNullableFilter<"Media"> | string | null
+    rejectionReason?: StringNullableFilter<"Media"> | string | null
+    uploadedAt?: DateTimeFilter<"Media"> | Date | string
+    updatedAt?: DateTimeFilter<"Media"> | Date | string
+  }
+
+  export type KycSubmissionUpsertWithoutUserInput = {
+    update: XOR<KycSubmissionUpdateWithoutUserInput, KycSubmissionUncheckedUpdateWithoutUserInput>
+    create: XOR<KycSubmissionCreateWithoutUserInput, KycSubmissionUncheckedCreateWithoutUserInput>
+    where?: KycSubmissionWhereInput
+  }
+
+  export type KycSubmissionUpdateToOneWithWhereWithoutUserInput = {
+    where?: KycSubmissionWhereInput
+    data: XOR<KycSubmissionUpdateWithoutUserInput, KycSubmissionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type KycSubmissionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: KycDocumentUpdateManyWithoutKycSubmissionNestedInput
+  }
+
+  export type KycSubmissionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    documents?: KycDocumentUncheckedUpdateManyWithoutKycSubmissionNestedInput
+  }
+
   export type UserCreateWithoutSessionsInput = {
     id?: string
     email: string
@@ -7653,6 +13535,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     role?: RoleCreateNestedOneWithoutUsersInput
+    media?: MediaCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -7668,6 +13552,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     roleId?: string | null
+    media?: MediaUncheckedCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -7731,6 +13617,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: RoleUpdateOneWithoutUsersNestedInput
+    media?: MediaUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -7746,6 +13634,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    media?: MediaUncheckedUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type RefreshTokenUpsertWithWhereUniqueWithoutSessionInput = {
@@ -7967,6 +13857,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
+    media?: MediaCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleInput = {
@@ -7982,6 +13874,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutUploaderInput
+    kycSubmission?: KycSubmissionUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleInput = {
@@ -8028,6 +13922,480 @@ export namespace Prisma {
     roleId?: StringNullableFilter<"User"> | string | null
   }
 
+  export type UserCreateWithoutMediaInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    fullName: string
+    kycStatus?: $Enums.KycStatus
+    passwordHash: string
+    kycVerifiedAt?: Date | string | null
+    passwordChangedAt?: Date | string | null
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    role?: RoleCreateNestedOneWithoutUsersInput
+    kycSubmission?: KycSubmissionCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMediaInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    fullName: string
+    kycStatus?: $Enums.KycStatus
+    passwordHash: string
+    kycVerifiedAt?: Date | string | null
+    passwordChangedAt?: Date | string | null
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roleId?: string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    kycSubmission?: KycSubmissionUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMediaInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+  }
+
+  export type KycDocumentCreateWithoutMediaInput = {
+    id?: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+    kycSubmission: KycSubmissionCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type KycDocumentUncheckedCreateWithoutMediaInput = {
+    id?: string
+    kycSubmissionId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentCreateOrConnectWithoutMediaInput = {
+    where: KycDocumentWhereUniqueInput
+    create: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput>
+  }
+
+  export type KycDocumentCreateManyMediaInputEnvelope = {
+    data: KycDocumentCreateManyMediaInput | KycDocumentCreateManyMediaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutMediaInput = {
+    update: XOR<UserUpdateWithoutMediaInput, UserUncheckedUpdateWithoutMediaInput>
+    create: XOR<UserCreateWithoutMediaInput, UserUncheckedCreateWithoutMediaInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMediaInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMediaInput, UserUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type UserUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: StringFieldUpdateOperationsInput | string
+    kycStatus?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneWithoutUsersNestedInput
+    kycSubmission?: KycSubmissionUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: StringFieldUpdateOperationsInput | string
+    kycStatus?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    kycSubmission?: KycSubmissionUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type KycDocumentUpsertWithWhereUniqueWithoutMediaInput = {
+    where: KycDocumentWhereUniqueInput
+    update: XOR<KycDocumentUpdateWithoutMediaInput, KycDocumentUncheckedUpdateWithoutMediaInput>
+    create: XOR<KycDocumentCreateWithoutMediaInput, KycDocumentUncheckedCreateWithoutMediaInput>
+  }
+
+  export type KycDocumentUpdateWithWhereUniqueWithoutMediaInput = {
+    where: KycDocumentWhereUniqueInput
+    data: XOR<KycDocumentUpdateWithoutMediaInput, KycDocumentUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type KycDocumentUpdateManyWithWhereWithoutMediaInput = {
+    where: KycDocumentScalarWhereInput
+    data: XOR<KycDocumentUpdateManyMutationInput, KycDocumentUncheckedUpdateManyWithoutMediaInput>
+  }
+
+  export type KycDocumentScalarWhereInput = {
+    AND?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+    OR?: KycDocumentScalarWhereInput[]
+    NOT?: KycDocumentScalarWhereInput | KycDocumentScalarWhereInput[]
+    id?: StringFilter<"KycDocument"> | string
+    kycSubmissionId?: StringFilter<"KycDocument"> | string
+    mediaId?: StringFilter<"KycDocument"> | string
+    documentType?: EnumKycDocumentTypeFilter<"KycDocument"> | $Enums.KycDocumentType
+    documentNumber?: StringNullableFilter<"KycDocument"> | string | null
+    expiryDate?: DateTimeNullableFilter<"KycDocument"> | Date | string | null
+    issuingCountry?: StringNullableFilter<"KycDocument"> | string | null
+    createdAt?: DateTimeFilter<"KycDocument"> | Date | string
+  }
+
+  export type UserCreateWithoutKycSubmissionInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    fullName: string
+    kycStatus?: $Enums.KycStatus
+    passwordHash: string
+    kycVerifiedAt?: Date | string | null
+    passwordChangedAt?: Date | string | null
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    role?: RoleCreateNestedOneWithoutUsersInput
+    media?: MediaCreateNestedManyWithoutUploaderInput
+  }
+
+  export type UserUncheckedCreateWithoutKycSubmissionInput = {
+    id?: string
+    email: string
+    phone?: string | null
+    fullName: string
+    kycStatus?: $Enums.KycStatus
+    passwordHash: string
+    kycVerifiedAt?: Date | string | null
+    passwordChangedAt?: Date | string | null
+    status?: $Enums.UserStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roleId?: string | null
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    media?: MediaUncheckedCreateNestedManyWithoutUploaderInput
+  }
+
+  export type UserCreateOrConnectWithoutKycSubmissionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutKycSubmissionInput, UserUncheckedCreateWithoutKycSubmissionInput>
+  }
+
+  export type KycDocumentCreateWithoutKycSubmissionInput = {
+    id?: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+    media: MediaCreateNestedOneWithoutKycDocumentsInput
+  }
+
+  export type KycDocumentUncheckedCreateWithoutKycSubmissionInput = {
+    id?: string
+    mediaId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentCreateOrConnectWithoutKycSubmissionInput = {
+    where: KycDocumentWhereUniqueInput
+    create: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput>
+  }
+
+  export type KycDocumentCreateManyKycSubmissionInputEnvelope = {
+    data: KycDocumentCreateManyKycSubmissionInput | KycDocumentCreateManyKycSubmissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutKycSubmissionInput = {
+    update: XOR<UserUpdateWithoutKycSubmissionInput, UserUncheckedUpdateWithoutKycSubmissionInput>
+    create: XOR<UserCreateWithoutKycSubmissionInput, UserUncheckedCreateWithoutKycSubmissionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutKycSubmissionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutKycSubmissionInput, UserUncheckedUpdateWithoutKycSubmissionInput>
+  }
+
+  export type UserUpdateWithoutKycSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: StringFieldUpdateOperationsInput | string
+    kycStatus?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    role?: RoleUpdateOneWithoutUsersNestedInput
+    media?: MediaUpdateManyWithoutUploaderNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutKycSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    fullName?: StringFieldUpdateOperationsInput | string
+    kycStatus?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    kycVerifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    passwordChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roleId?: NullableStringFieldUpdateOperationsInput | string | null
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutUploaderNestedInput
+  }
+
+  export type KycDocumentUpsertWithWhereUniqueWithoutKycSubmissionInput = {
+    where: KycDocumentWhereUniqueInput
+    update: XOR<KycDocumentUpdateWithoutKycSubmissionInput, KycDocumentUncheckedUpdateWithoutKycSubmissionInput>
+    create: XOR<KycDocumentCreateWithoutKycSubmissionInput, KycDocumentUncheckedCreateWithoutKycSubmissionInput>
+  }
+
+  export type KycDocumentUpdateWithWhereUniqueWithoutKycSubmissionInput = {
+    where: KycDocumentWhereUniqueInput
+    data: XOR<KycDocumentUpdateWithoutKycSubmissionInput, KycDocumentUncheckedUpdateWithoutKycSubmissionInput>
+  }
+
+  export type KycDocumentUpdateManyWithWhereWithoutKycSubmissionInput = {
+    where: KycDocumentScalarWhereInput
+    data: XOR<KycDocumentUpdateManyMutationInput, KycDocumentUncheckedUpdateManyWithoutKycSubmissionInput>
+  }
+
+  export type KycSubmissionCreateWithoutDocumentsInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    user: UserCreateNestedOneWithoutKycSubmissionInput
+  }
+
+  export type KycSubmissionUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    userId: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dateOfBirth: Date | string
+    nationality: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state?: string | null
+    postalCode: string
+    country: string
+    status?: $Enums.KycStatus
+    submittedAt?: Date | string
+    reviewedAt?: Date | string | null
+    reviewedBy?: string | null
+    rejectionReason?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+  }
+
+  export type KycSubmissionCreateOrConnectWithoutDocumentsInput = {
+    where: KycSubmissionWhereUniqueInput
+    create: XOR<KycSubmissionCreateWithoutDocumentsInput, KycSubmissionUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type MediaCreateWithoutKycDocumentsInput = {
+    id?: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploader: UserCreateNestedOneWithoutMediaInput
+  }
+
+  export type MediaUncheckedCreateWithoutKycDocumentsInput = {
+    id?: string
+    uploadedBy: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MediaCreateOrConnectWithoutKycDocumentsInput = {
+    where: MediaWhereUniqueInput
+    create: XOR<MediaCreateWithoutKycDocumentsInput, MediaUncheckedCreateWithoutKycDocumentsInput>
+  }
+
+  export type KycSubmissionUpsertWithoutDocumentsInput = {
+    update: XOR<KycSubmissionUpdateWithoutDocumentsInput, KycSubmissionUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<KycSubmissionCreateWithoutDocumentsInput, KycSubmissionUncheckedCreateWithoutDocumentsInput>
+    where?: KycSubmissionWhereInput
+  }
+
+  export type KycSubmissionUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: KycSubmissionWhereInput
+    data: XOR<KycSubmissionUpdateWithoutDocumentsInput, KycSubmissionUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type KycSubmissionUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutKycSubmissionNestedInput
+  }
+
+  export type KycSubmissionUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    nationality?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    status?: EnumKycStatusFieldUpdateOperationsInput | $Enums.KycStatus
+    submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MediaUpsertWithoutKycDocumentsInput = {
+    update: XOR<MediaUpdateWithoutKycDocumentsInput, MediaUncheckedUpdateWithoutKycDocumentsInput>
+    create: XOR<MediaCreateWithoutKycDocumentsInput, MediaUncheckedCreateWithoutKycDocumentsInput>
+    where?: MediaWhereInput
+  }
+
+  export type MediaUpdateToOneWithWhereWithoutKycDocumentsInput = {
+    where?: MediaWhereInput
+    data: XOR<MediaUpdateWithoutKycDocumentsInput, MediaUncheckedUpdateWithoutKycDocumentsInput>
+  }
+
+  export type MediaUpdateWithoutKycDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploader?: UserUpdateOneRequiredWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateWithoutKycDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    uploadedBy?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SessionCreateManyUserInput = {
     id?: string
     createdAt?: Date | string
@@ -8038,6 +14406,24 @@ export namespace Prisma {
     revocationReason?: $Enums.RevocationReason | null
     ipAddress?: string | null
     userAgent?: string | null
+  }
+
+  export type MediaCreateManyUploaderInput = {
+    id?: string
+    category?: $Enums.MediaCategory
+    type: $Enums.MediaType
+    status?: $Enums.MediaStatus
+    originalFileName: string
+    fileSize: number
+    mimeType: string
+    encryptedPath: string
+    fileHash: string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: Date | string | null
+    verifiedBy?: string | null
+    rejectionReason?: string | null
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SessionUpdateWithoutUserInput = {
@@ -8076,6 +14462,62 @@ export namespace Prisma {
     revocationReason?: NullableEnumRevocationReasonFieldUpdateOperationsInput | $Enums.RevocationReason | null
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MediaUpdateWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kycDocuments?: KycDocumentUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kycDocuments?: KycDocumentUncheckedUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateManyWithoutUploaderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    category?: EnumMediaCategoryFieldUpdateOperationsInput | $Enums.MediaCategory
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    status?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    originalFileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    encryptedPath?: StringFieldUpdateOperationsInput | string
+    fileHash?: StringFieldUpdateOperationsInput | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RefreshTokenCreateManySessionInput = {
@@ -8189,6 +14631,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    media?: MediaUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleInput = {
@@ -8204,6 +14648,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    media?: MediaUncheckedUpdateManyWithoutUploaderNestedInput
+    kycSubmission?: KycSubmissionUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutRoleInput = {
@@ -8218,6 +14664,86 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentCreateManyMediaInput = {
+    id?: string
+    kycSubmissionId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kycSubmission?: KycSubmissionUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type KycDocumentUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kycSubmissionId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentUncheckedUpdateManyWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kycSubmissionId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentCreateManyKycSubmissionInput = {
+    id?: string
+    mediaId: string
+    documentType: $Enums.KycDocumentType
+    documentNumber?: string | null
+    expiryDate?: Date | string | null
+    issuingCountry?: string | null
+    createdAt?: Date | string
+  }
+
+  export type KycDocumentUpdateWithoutKycSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: MediaUpdateOneRequiredWithoutKycDocumentsNestedInput
+  }
+
+  export type KycDocumentUncheckedUpdateWithoutKycSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type KycDocumentUncheckedUpdateManyWithoutKycSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentType?: EnumKycDocumentTypeFieldUpdateOperationsInput | $Enums.KycDocumentType
+    documentNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    expiryDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    issuingCountry?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

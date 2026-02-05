@@ -12,8 +12,45 @@ datasource db {
 // ============================================================================
 enum KycStatus {
   PENDING
+  APPROVED // Changed from VERIFIED for consistency
+  REJECTED
+}
+
+enum MediaType {
+  IMAGE
+  PDF
+  VIDEO
+  AUDIO
+  DOCUMENT
+  OTHER
+}
+
+enum MediaCategory {
+  KYC_DOCUMENT
+  USER_AVATAR
+  TRANSACTION_RECEIPT
+  SUPPORT_ATTACHMENT
+  PROFILE_DOCUMENT
+  CHAT_ATTACHMENT
+  OTHER
+}
+
+enum MediaStatus {
+  PENDING
   VERIFIED
   REJECTED
+  ARCHIVED
+}
+
+enum KycDocumentType {
+  PASSPORT
+  DRIVERS_LICENSE
+  NATIONAL_ID
+  PROOF_OF_ADDRESS_UTILITY
+  PROOF_OF_ADDRESS_BANK
+  PROOF_OF_ADDRESS_LEASE
+  SELFIE
+  OTHER
 }
 
 enum UserStatus {
@@ -49,7 +86,9 @@ model User {
   updatedAt         DateTime   @updatedAt @map("updated_at")
   roleId            String?    @map("role_id")
 
-  role Role? @relation(fields: [roleId], references: [id])
+  role          Role?          @relation(fields: [roleId], references: [id])
+  media         Media[]
+  kycSubmission KycSubmission?
 
   @@index([email])
   @@index([kycStatus])
@@ -110,4 +149,115 @@ model Role {
   users     User[]
 
   @@map("roles")
+}
+
+// ============================================================================
+// GENERAL MEDIA TABLE - Used across entire application
+// ============================================================================
+model Media {
+  id String @id @default(uuid())
+
+  // Ownership
+  uploadedBy String @map("uploaded_by")
+  uploader   User   @relation(fields: [uploadedBy], references: [id], onDelete: Cascade)
+
+  // Classification
+  category MediaCategory @default(OTHER)
+  type     MediaType
+  status   MediaStatus   @default(PENDING)
+
+  // File Information (encrypted)
+  originalFileName String @map("original_file_name")
+  fileSize         Int    @map("file_size")
+  mimeType         String @map("mime_type")
+  encryptedPath    String @unique @map("encrypted_path") // Encrypted file path
+  fileHash         String @map("file_hash") // SHA-256 for integrity
+
+  // Optional metadata (JSON for flexibility)
+  metadata Json? @map("metadata")
+
+  // Verification (for documents requiring review)
+  verifiedAt      DateTime? @map("verified_at")
+  verifiedBy      String?   @map("verified_by")
+  rejectionReason String?   @map("rejection_reason")
+
+  // Timestamps
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  kycDocuments KycDocument[]
+
+  @@index([uploadedBy])
+  @@index([category])
+  @@index([status])
+  @@index([uploadedAt])
+  @@map("media")
+}
+
+// ============================================================================
+// KYC SUBMISSION
+// ============================================================================
+model KycSubmission {
+  id     String @id @default(uuid())
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal Information
+  firstName   String   @map("first_name")
+  middleName  String?  @map("middle_name")
+  lastName    String   @map("last_name")
+  dateOfBirth DateTime @map("date_of_birth")
+  nationality String
+
+  // Address Information
+  addressLine1 String  @map("address_line1")
+  addressLine2 String? @map("address_line2")
+  city         String
+  state        String?
+  postalCode   String  @map("postal_code")
+  country      String
+
+  // Status & Review
+  status          KycStatus @default(PENDING)
+  submittedAt     DateTime  @default(now()) @map("submitted_at")
+  reviewedAt      DateTime? @map("reviewed_at")
+  reviewedBy      String?   @map("reviewed_by")
+  rejectionReason String?   @map("rejection_reason")
+
+  // Metadata
+  ipAddress String? @map("ip_address")
+  userAgent String? @map("user_agent")
+
+  documents KycDocument[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("kyc_submissions")
+}
+
+// ============================================================================
+// KYC DOCUMENT - Junction table linking KYC submissions to Media files
+// ============================================================================
+model KycDocument {
+  id              String        @id @default(uuid())
+  kycSubmissionId String        @map("kyc_submission_id")
+  kycSubmission   KycSubmission @relation(fields: [kycSubmissionId], references: [id], onDelete: Cascade)
+
+  mediaId String @map("media_id")
+  media   Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  documentType KycDocumentType @map("document_type")
+
+  // Additional KYC-specific metadata
+  documentNumber String?   @map("document_number") // e.g., passport number
+  expiryDate     DateTime? @map("expiry_date") // for IDs
+  issuingCountry String?   @map("issuing_country")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([kycSubmissionId, documentType]) // One document per type per submission
+  @@index([kycSubmissionId])
+  @@index([mediaId])
+  @@map("kyc_documents")
 }

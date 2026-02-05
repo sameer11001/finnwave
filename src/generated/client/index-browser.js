@@ -166,9 +166,67 @@ exports.Prisma.RoleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MediaScalarFieldEnum = {
+  id: 'id',
+  uploadedBy: 'uploadedBy',
+  category: 'category',
+  type: 'type',
+  status: 'status',
+  originalFileName: 'originalFileName',
+  fileSize: 'fileSize',
+  mimeType: 'mimeType',
+  encryptedPath: 'encryptedPath',
+  fileHash: 'fileHash',
+  metadata: 'metadata',
+  verifiedAt: 'verifiedAt',
+  verifiedBy: 'verifiedBy',
+  rejectionReason: 'rejectionReason',
+  uploadedAt: 'uploadedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.KycSubmissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  firstName: 'firstName',
+  middleName: 'middleName',
+  lastName: 'lastName',
+  dateOfBirth: 'dateOfBirth',
+  nationality: 'nationality',
+  addressLine1: 'addressLine1',
+  addressLine2: 'addressLine2',
+  city: 'city',
+  state: 'state',
+  postalCode: 'postalCode',
+  country: 'country',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  rejectionReason: 'rejectionReason',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent'
+};
+
+exports.Prisma.KycDocumentScalarFieldEnum = {
+  id: 'id',
+  kycSubmissionId: 'kycSubmissionId',
+  mediaId: 'mediaId',
+  documentType: 'documentType',
+  documentNumber: 'documentNumber',
+  expiryDate: 'expiryDate',
+  issuingCountry: 'issuingCountry',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -180,9 +238,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.KycStatus = exports.$Enums.KycStatus = {
   PENDING: 'PENDING',
-  VERIFIED: 'VERIFIED',
+  APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'
 };
 
@@ -200,11 +264,51 @@ exports.RevocationReason = exports.$Enums.RevocationReason = {
   TOKEN_REUSE: 'TOKEN_REUSE'
 };
 
+exports.MediaCategory = exports.$Enums.MediaCategory = {
+  KYC_DOCUMENT: 'KYC_DOCUMENT',
+  USER_AVATAR: 'USER_AVATAR',
+  TRANSACTION_RECEIPT: 'TRANSACTION_RECEIPT',
+  SUPPORT_ATTACHMENT: 'SUPPORT_ATTACHMENT',
+  PROFILE_DOCUMENT: 'PROFILE_DOCUMENT',
+  CHAT_ATTACHMENT: 'CHAT_ATTACHMENT',
+  OTHER: 'OTHER'
+};
+
+exports.MediaType = exports.$Enums.MediaType = {
+  IMAGE: 'IMAGE',
+  PDF: 'PDF',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  DOCUMENT: 'DOCUMENT',
+  OTHER: 'OTHER'
+};
+
+exports.MediaStatus = exports.$Enums.MediaStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  ARCHIVED: 'ARCHIVED'
+};
+
+exports.KycDocumentType = exports.$Enums.KycDocumentType = {
+  PASSPORT: 'PASSPORT',
+  DRIVERS_LICENSE: 'DRIVERS_LICENSE',
+  NATIONAL_ID: 'NATIONAL_ID',
+  PROOF_OF_ADDRESS_UTILITY: 'PROOF_OF_ADDRESS_UTILITY',
+  PROOF_OF_ADDRESS_BANK: 'PROOF_OF_ADDRESS_BANK',
+  PROOF_OF_ADDRESS_LEASE: 'PROOF_OF_ADDRESS_LEASE',
+  SELFIE: 'SELFIE',
+  OTHER: 'OTHER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   RefreshToken: 'RefreshToken',
-  Role: 'Role'
+  Role: 'Role',
+  Media: 'Media',
+  KycSubmission: 'KycSubmission',
+  KycDocument: 'KycDocument'
 };
 
 /**
