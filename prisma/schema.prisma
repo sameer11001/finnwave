@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -88,6 +87,7 @@ model User {
   role              Role?      @relation(fields: [roleId], references: [id])
   media             Media[]
   kycSubmission     KycSubmission?
+
   
   @@index([email])
   @@index([kycStatus])

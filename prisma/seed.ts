@@ -1,6 +1,6 @@
 import { Roles } from '../src/modules/roles/roles.enum';
-import { PrismaClient } from '../src/generated/client/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from '@prisma/client';
 import { Pool } from 'pg';
 
 const pool = new Pool({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../infrastructure/postgres/prisma.service';
-import { Session, RevocationReason } from '../../../generated/client/client';
+import { RevocationReason, Session } from '@prisma/client';
 
 export interface CreateSessionDto {
   userId: string;

@@ -17,4 +17,5 @@ export class UsersService extends BaseService<User> {
   async findByPhone(phoneNumber: string): Promise<User | null> {
     return this.usersRepository.findByPhone(phoneNumber);
   }
+  
 }

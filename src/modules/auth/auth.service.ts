@@ -13,9 +13,8 @@ import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { TokenService } from './services/token.service';
 import { SessionService } from './services/session.service';
-import { RevocationReason, UserStatus } from '../../generated/client/client';
-import { Roles } from './guards/roles.decorators';
-import { PrismaService } from '../../infrastructure/postgres/prisma.service';
+import { RevocationReason, UserStatus } from '@prisma/client';
+import { PrismaService } from 'src/infrastructure/postgres/prisma.service';
 
 @Injectable()
 export class AuthService {
@@ -170,4 +169,5 @@ export class AuthService {
       HttpStatus.OK,
     );
   }
+
 }

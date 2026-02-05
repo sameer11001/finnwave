@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import * as argon2 from 'argon2';
 import * as crypto from 'crypto';
 import { PrismaService } from '../../../infrastructure/postgres/prisma.service';
-import { RevocationReason } from '../../../generated/client/client';
+import { RevocationReason } from '@prisma/client';
 
 export interface JwtPayload {
   sub: string;

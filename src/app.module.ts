@@ -6,9 +6,7 @@ import { CoreModule } from './core/core.module';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { FinnWaveModule } from './modules/finnwave.module';
 import { UsersController } from './modules/users/users.controller';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { RolesModule } from './modules/roles/roles.module';
+
 
 @Module({
   imports: [
@@ -18,10 +16,7 @@ import { RolesModule } from './modules/roles/roles.module';
     }),
     CoreModule,
     InfrastructureModule,
-    FinnWaveModule,
-    UsersModule,
-    AuthModule,
-    RolesModule,
+    FinnWaveModule
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],
