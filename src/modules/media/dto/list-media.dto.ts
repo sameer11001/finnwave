@@ -5,7 +5,7 @@ import {
   MediaCategory,
   MediaStatus,
   MediaType,
-} from '../../../generated/client/client';
+} from '@prisma/client';
 
 export class ListMediaDto {
   @ApiPropertyOptional({

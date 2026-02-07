@@ -18,7 +18,7 @@ import {
   Media,
   MediaCategory,
   MediaStatus,
-} from '../../generated/client/client';
+} from '@prisma/client';
 import { SubmitKycDto } from './dto/submit-kyc.dto';
 import { AttachDocumentDto } from './dto/attach-document.dto';
 import { ReviewKycDto, ReviewAction } from './dto/review-kyc.dto';

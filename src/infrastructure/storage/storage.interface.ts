@@ -1,4 +1,4 @@
-import { MediaCategory } from '../../generated/client/client';
+import { MediaCategory } from '@prisma/client';
 
 export interface IStorageService {
   /**

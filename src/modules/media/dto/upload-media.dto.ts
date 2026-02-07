@@ -6,7 +6,7 @@ import {
   IsObject,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { MediaCategory } from '../../../generated/client/client';
+import { MediaCategory } from '@prisma/client';
 
 export class UploadMediaDto {
   @ApiProperty({

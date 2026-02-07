@@ -31,7 +31,7 @@ import {
 } from './dto/kyc-response.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { GetUser } from '../auth/decorators/get-user.decorator';
-import { KycStatus } from '../../generated/client/client';
+import { KycStatus } from '@prisma/client';
 
 @ApiTags('KYC')
 @Controller('kyc')

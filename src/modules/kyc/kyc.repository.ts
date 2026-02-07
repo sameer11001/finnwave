@@ -5,7 +5,7 @@ import {
   KycDocument,
   KycStatus,
   Prisma,
-} from '../../generated/client/client';
+} from '@prisma/client';
 
 @Injectable()
 export class KycRepository {

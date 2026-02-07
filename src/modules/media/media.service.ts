@@ -15,7 +15,7 @@ import {
   MediaCategory,
   MediaStatus,
   MediaType,
-} from '../../generated/client/client';
+} from '@prisma/client';
 import { UploadMediaDto } from './dto/upload-media.dto';
 import { ListMediaDto } from './dto/list-media.dto';
 import { MediaResponseDto, MediaListResponseDto } from './dto/media-response.dto';

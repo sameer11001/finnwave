@@ -8,7 +8,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { KycDocumentType } from '../../../generated/client/client';
+import { KycDocumentType } from'@prisma/client';
 
 export class AttachDocumentDto {
   @ApiProperty({

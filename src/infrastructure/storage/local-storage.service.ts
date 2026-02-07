@@ -10,7 +10,7 @@ import {
   decryptPath,
   hashFile,
 } from '../../common/utils/encryption.util';
-import { MediaCategory } from '../../generated/client/client';
+import { MediaCategory } from '@prisma/client';
 
 @Injectable()
 export class LocalStorageService implements IStorageService {
