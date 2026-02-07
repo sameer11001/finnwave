@@ -1,49 +1,47 @@
-import { Injectable,CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { Roles } from './roles.decorators';
-import { JwtService } from '@nestjs/jwt';
-import { session } from 'passport';
-import { DateHelper } from 'src/core/utils/date_helper';
-
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
-  constructor(private reflector: Reflector, private jwtService: JwtService) {
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  constructor(private reflector: Reflector) {
     super();
   }
-  canActivate(context: ExecutionContext): boolean {
+
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const canActivate = super.canActivate(context);
+
+    if (canActivate instanceof Promise || canActivate instanceof Observable) {
+      return canActivate;
+    }
+
+    if (canActivate) {
       const roles = this.reflector.get(Roles, context.getHandler());
-      if (!roles||roles.length===0) {
-        return false;
+
+      if (!roles || roles.length === 0) {
+        return true;
       }
-      
+
       const request = context.switchToHttp().getRequest();
       const user = request.user;
-      if(!user||!user.role){
+
+      if (!user || !user.role) {
         throw new ForbiddenException('Access denied: No user role found');
       }
-    async function verifyToken(token: string): Promise<any> {
-      const hashedToken = this.hashedToken(token);
-      const dbrefreshToken = this.prisma.refreshToken.findUnique({
-        where: { tokenHash: hashedToken },
-        include: { session: true },
-        },
-    );
-    if(!dbrefreshToken){
-      throw new ForbiddenException('Access denied: Invalid token');
-    }
-    if(dbrefreshToken.expiryDate < DateHelper.localToUTC()){
-      throw new ForbiddenException('Access denied: Token expired');     
-    }
-    if(dbrefreshToken.usedAt){
-      throw new ForbiddenException('Access denied: Token already used');}
-    return dbrefreshToken;
-  }
+
       if (!roles.includes(user.role)) {
         throw new ForbiddenException('User role not authorized');
       }
+    }
 
-    return true;
+    return canActivate;
   }
 }
