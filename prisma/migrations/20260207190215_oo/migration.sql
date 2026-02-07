@@ -1,32 +1,48 @@
 /*
   Warnings:
 
-  - The values [VERIFIED] on the enum `KycStatus` will be removed. If these variants are still used in the database, this will fail.
+  - The `revocation_reason` column on the `sessions` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The `kyc_status` column on the `users` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The `status` column on the `users` table would be dropped and recreated. This will lead to data loss if there is data in the column.
 
 */
+-- CreateEnum
+CREATE TYPE "KycStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
+
 -- CreateEnum
 CREATE TYPE "MediaType" AS ENUM ('IMAGE', 'PDF', 'VIDEO', 'AUDIO', 'DOCUMENT', 'OTHER');
 
 -- CreateEnum
-CREATE TYPE "MediaCategory" AS ENUM ('KYC_DOCUMENT', 'USER_AVATAR', 'TRANSACTION_RECEIPT', 'SUPPORT_ATTACHMENT', 'PROFILE_DOCUMENT', 'CHAT_ATTACHMENT', 'OTHER');
-
--- CreateEnum
-CREATE TYPE "MediaStatus" AS ENUM ('PENDING', 'VERIFIED', 'REJECTED', 'ARCHIVED');
+CREATE TYPE "MediaCategory" AS ENUM ('KYC_DOCUMENT', 'USER_AVATAR', 'TRANSACTION_RECEIPT', 'SUPPORT_ATTACHMENT', 'PROFILE_DOCUMENT', 'OTHER');
 
 -- CreateEnum
 CREATE TYPE "KycDocumentType" AS ENUM ('PASSPORT', 'DRIVERS_LICENSE', 'NATIONAL_ID', 'PROOF_OF_ADDRESS_UTILITY', 'PROOF_OF_ADDRESS_BANK', 'PROOF_OF_ADDRESS_LEASE', 'SELFIE', 'OTHER');
 
--- AlterEnum
-BEGIN;
-CREATE TYPE "KycStatus_new" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
-ALTER TABLE "public"."users" ALTER COLUMN "kyc_status" DROP DEFAULT;
-ALTER TABLE "users" ALTER COLUMN "kyc_status" TYPE "KycStatus_new" USING ("kyc_status"::text::"KycStatus_new");
-ALTER TABLE "kyc_submissions" ALTER COLUMN "status" TYPE "KycStatus_new" USING ("status"::text::"KycStatus_new");
-ALTER TYPE "KycStatus" RENAME TO "KycStatus_old";
-ALTER TYPE "KycStatus_new" RENAME TO "KycStatus";
-DROP TYPE "public"."KycStatus_old";
-ALTER TABLE "users" ALTER COLUMN "kyc_status" SET DEFAULT 'PENDING';
-COMMIT;
+-- CreateEnum
+CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'SUSPENDED', 'CLOSED');
+
+-- CreateEnum
+CREATE TYPE "RevocationReason" AS ENUM ('USER_LOGOUT', 'PASSWORD_CHANGE', 'FRAUD', 'IDLE_TIMEOUT', 'TOKEN_REUSE');
+
+-- AlterTable
+ALTER TABLE "sessions" DROP COLUMN "revocation_reason",
+ADD COLUMN     "revocation_reason" "RevocationReason";
+
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "role_id" TEXT,
+DROP COLUMN "kyc_status",
+ADD COLUMN     "kyc_status" "KycStatus" NOT NULL DEFAULT 'PENDING',
+DROP COLUMN "status",
+ADD COLUMN     "status" "UserStatus" NOT NULL DEFAULT 'ACTIVE';
+
+-- DropEnum
+DROP TYPE "kyc_status_enum";
+
+-- DropEnum
+DROP TYPE "revocation_reason_enum";
+
+-- DropEnum
+DROP TYPE "user_status_enum";
 
 -- CreateTable
 CREATE TABLE "media" (
@@ -34,7 +50,6 @@ CREATE TABLE "media" (
     "uploaded_by" TEXT NOT NULL,
     "category" "MediaCategory" NOT NULL DEFAULT 'OTHER',
     "type" "MediaType" NOT NULL,
-    "status" "MediaStatus" NOT NULL DEFAULT 'PENDING',
     "original_file_name" TEXT NOT NULL,
     "file_size" INTEGER NOT NULL,
     "mime_type" TEXT NOT NULL,
@@ -51,7 +66,7 @@ CREATE TABLE "media" (
 );
 
 -- CreateTable
-CREATE TABLE "kyc_submissions" (
+CREATE TABLE "KycSubmission" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
     "first_name" TEXT NOT NULL,
@@ -73,7 +88,7 @@ CREATE TABLE "kyc_submissions" (
     "ip_address" TEXT,
     "user_agent" TEXT,
 
-    CONSTRAINT "kyc_submissions_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "KycSubmission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -100,19 +115,16 @@ CREATE INDEX "media_uploaded_by_idx" ON "media"("uploaded_by");
 CREATE INDEX "media_category_idx" ON "media"("category");
 
 -- CreateIndex
-CREATE INDEX "media_status_idx" ON "media"("status");
-
--- CreateIndex
 CREATE INDEX "media_uploaded_at_idx" ON "media"("uploaded_at");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "kyc_submissions_user_id_key" ON "kyc_submissions"("user_id");
+CREATE UNIQUE INDEX "KycSubmission_user_id_key" ON "KycSubmission"("user_id");
 
 -- CreateIndex
-CREATE INDEX "kyc_submissions_user_id_idx" ON "kyc_submissions"("user_id");
+CREATE INDEX "KycSubmission_user_id_idx" ON "KycSubmission"("user_id");
 
 -- CreateIndex
-CREATE INDEX "kyc_submissions_status_idx" ON "kyc_submissions"("status");
+CREATE INDEX "KycSubmission_status_idx" ON "KycSubmission"("status");
 
 -- CreateIndex
 CREATE INDEX "kyc_documents_kyc_submission_id_idx" ON "kyc_documents"("kyc_submission_id");
@@ -123,14 +135,20 @@ CREATE INDEX "kyc_documents_media_id_idx" ON "kyc_documents"("media_id");
 -- CreateIndex
 CREATE UNIQUE INDEX "kyc_documents_kyc_submission_id_document_type_key" ON "kyc_documents"("kyc_submission_id", "document_type");
 
+-- CreateIndex
+CREATE INDEX "users_kyc_status_idx" ON "users"("kyc_status");
+
+-- AddForeignKey
+ALTER TABLE "users" ADD CONSTRAINT "users_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "roles"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
 -- AddForeignKey
 ALTER TABLE "media" ADD CONSTRAINT "media_uploaded_by_fkey" FOREIGN KEY ("uploaded_by") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "kyc_submissions" ADD CONSTRAINT "kyc_submissions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "KycSubmission" ADD CONSTRAINT "KycSubmission_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "kyc_documents" ADD CONSTRAINT "kyc_documents_kyc_submission_id_fkey" FOREIGN KEY ("kyc_submission_id") REFERENCES "kyc_submissions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "kyc_documents" ADD CONSTRAINT "kyc_documents_kyc_submission_id_fkey" FOREIGN KEY ("kyc_submission_id") REFERENCES "KycSubmission"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "kyc_documents" ADD CONSTRAINT "kyc_documents_media_id_fkey" FOREIGN KEY ("media_id") REFERENCES "media"("id") ON DELETE CASCADE ON UPDATE CASCADE;

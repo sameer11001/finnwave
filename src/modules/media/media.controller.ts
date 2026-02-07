@@ -65,7 +65,6 @@ export class MediaController {
             'TRANSACTION_RECEIPT',
             'SUPPORT_ATTACHMENT',
             'PROFILE_DOCUMENT',
-            'CHAT_ATTACHMENT',
             'OTHER',
           ],
           description: 'Category of the media file',
@@ -97,7 +96,7 @@ export class MediaController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'List user media files' })
-  @ApiQuery({ name: 'category', required: false, enum: ['KYC_DOCUMENT', 'USER_AVATAR', 'TRANSACTION_RECEIPT', 'SUPPORT_ATTACHMENT', 'PROFILE_DOCUMENT', 'CHAT_ATTACHMENT', 'OTHER'] })
+  @ApiQuery({ name: 'category', required: false, enum: ['KYC_DOCUMENT', 'USER_AVATAR', 'TRANSACTION_RECEIPT', 'SUPPORT_ATTACHMENT', 'PROFILE_DOCUMENT', 'OTHER'] })
   @ApiQuery({ name: 'type', required: false, enum: ['IMAGE', 'PDF', 'VIDEO', 'AUDIO', 'DOCUMENT', 'OTHER'] })
   @ApiQuery({ name: 'status', required: false, enum: ['PENDING', 'VERIFIED', 'REJECTED', 'ARCHIVED'] })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
@@ -138,7 +137,6 @@ export class MediaController {
       id: media.id,
       category: media.category,
       type: media.type,
-      status: media.status,
       originalFileName: media.originalFileName,
       fileSize: media.fileSize,
       mimeType: media.mimeType,

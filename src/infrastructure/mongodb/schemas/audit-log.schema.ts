@@ -6,7 +6,7 @@ export type AuditLogDocument = AuditLog & Document;
 @Schema({ collection: 'audit_logs', timestamps: true })
 export class AuditLog {
   @Prop({ required: true, index: true })
-  eventType: string; // KYC_SUBMISSION, KYC_APPROVAL, KYC_REJECTION, MEDIA_UPLOAD, MEDIA_ACCESS, MEDIA_DELETE
+  eventType: string; 
 
   @Prop({ required: true, index: true })
   category: string; // KYC, MEDIA, AUTH, TRANSACTION, etc.

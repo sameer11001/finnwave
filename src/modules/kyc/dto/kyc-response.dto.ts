@@ -1,8 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   KycStatus,
-  KycDocumentType,
-  MediaStatus,
+  KycDocumentType
 } from '@prisma/client';
 
 export class KycDocumentResponseDto {
@@ -34,8 +33,6 @@ export class KycDocumentResponseDto {
   @ApiProperty({ example: 1024000 })
   fileSize: number;
 
-  @ApiProperty({ enum: MediaStatus, example: MediaStatus.PENDING })
-  status: MediaStatus;
 }
 
 export class KycSubmissionResponseDto {

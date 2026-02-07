@@ -9,11 +9,9 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { MediaRepository } from './media.repository';
 import { IStorageService } from '../../infrastructure/storage/storage.interface';
-import { AuditService } from '../../common/services/audit.service';
+import { AuditService } from '../../core/services/audit.service';
 import {
   Media,
-  MediaCategory,
-  MediaStatus,
   MediaType,
 } from '@prisma/client';
 import { UploadMediaDto } from './dto/upload-media.dto';
@@ -175,7 +173,6 @@ export class MediaService {
     const { data, total } = await this.mediaRepository.findByUser(userId, {
       category: listMediaDto.category,
       type: listMediaDto.type,
-      status: listMediaDto.status,
       skip,
       take: listMediaDto.limit,
     });
@@ -247,7 +244,6 @@ export class MediaService {
       id: media.id,
       category: media.category,
       type: media.type,
-      status: media.status,
       originalFileName: media.originalFileName,
       fileSize: media.fileSize,
       mimeType: media.mimeType,

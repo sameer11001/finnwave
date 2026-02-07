@@ -29,15 +29,7 @@ enum MediaCategory {
   TRANSACTION_RECEIPT
   SUPPORT_ATTACHMENT
   PROFILE_DOCUMENT
-  CHAT_ATTACHMENT
   OTHER
-}
-
-enum MediaStatus {
-  PENDING
-  VERIFIED
-  REJECTED
-  ARCHIVED
 }
 
 enum KycDocumentType {
@@ -163,7 +155,6 @@ model Media {
   // Classification
   category          MediaCategory @default(OTHER)
   type              MediaType
-  status            MediaStatus   @default(PENDING)
   
   // File Information (encrypted)
   originalFileName  String        @map("original_file_name")
@@ -189,7 +180,6 @@ model Media {
   
   @@index([uploadedBy])
   @@index([category])
-  @@index([status])
   @@index([uploadedAt])
   @@map("media")
 }
@@ -232,7 +222,6 @@ model KycSubmission {
   
   @@index([userId])
   @@index([status])
-  @@map("kyc_submissions")
 }
 
 // ============================================================================

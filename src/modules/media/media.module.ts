@@ -5,12 +5,14 @@ import { MediaRepository } from './media.repository';
 import { StorageModule } from '../../infrastructure/storage/storage.module';
 import { InfrastructureModule } from '../../infrastructure/infrastructure.module';
 import { MongodbModule } from '../../infrastructure/mongodb/mongodb.module';
-import { AuditService } from '../../common/services/audit.service';
+import { CoreModule } from 'src/core/core.module';
+import { AuthModule } from '../auth/auth.module';
+
 
 @Module({
-  imports: [StorageModule, InfrastructureModule, MongodbModule],
+  imports: [StorageModule, InfrastructureModule, MongodbModule,CoreModule,AuthModule],
   controllers: [MediaController],
-  providers: [MediaService, MediaRepository, AuditService],
+  providers: [MediaService, MediaRepository],
   exports: [MediaService, MediaRepository],
 })
 export class MediaModule {}

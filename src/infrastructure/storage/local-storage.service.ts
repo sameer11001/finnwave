@@ -9,7 +9,7 @@ import {
   encryptPath,
   decryptPath,
   hashFile,
-} from '../../common/utils/encryption.util';
+} from '../../core/utils/encryption.util';
 import { MediaCategory } from '@prisma/client';
 
 @Injectable()

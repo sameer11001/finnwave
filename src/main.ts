@@ -2,9 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter';
-import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
+import { HttpExceptionFilter } from './core/filters/http-exception.filter';
+import { TransformInterceptor } from './core/interceptors/transform.interceptor';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

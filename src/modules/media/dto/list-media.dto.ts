@@ -3,7 +3,6 @@ import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
   MediaCategory,
-  MediaStatus,
   MediaType,
 } from '@prisma/client';
 
@@ -20,11 +19,6 @@ export class ListMediaDto {
   @IsOptional()
   @IsEnum(MediaType)
   type?: MediaType;
-
-  @ApiPropertyOptional({ enum: MediaStatus, description: 'Filter by status' })
-  @IsOptional()
-  @IsEnum(MediaStatus)
-  status?: MediaStatus;
 
   @ApiPropertyOptional({ description: 'Page number', default: 1, minimum: 1 })
   @IsOptional()

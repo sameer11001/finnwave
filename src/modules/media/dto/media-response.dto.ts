@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   MediaCategory,
-  MediaStatus,
   MediaType,
 } from '@prisma/client';
 
@@ -14,9 +13,6 @@ export class MediaResponseDto {
 
   @ApiProperty({ enum: MediaType, example: MediaType.PDF })
   type: MediaType;
-
-  @ApiProperty({ enum: MediaStatus, example: MediaStatus.PENDING })
-  status: MediaStatus;
 
   @ApiProperty({ example: 'passport.pdf' })
   originalFileName: string;

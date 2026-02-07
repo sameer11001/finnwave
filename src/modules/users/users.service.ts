@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BaseService } from '../../core/services/base.service';
 import { User } from './users.entity';
 import { UsersRepository } from './users.repository';
 import { UserWithRole } from './schema/user_with_role';
+import { BaseService } from 'src/core/services/base.service';
 
 @Injectable()
 export class UsersService extends BaseService<User> {

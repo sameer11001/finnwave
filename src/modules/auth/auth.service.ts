@@ -7,7 +7,6 @@ import {
 import { UsersService } from '../users/users.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ResponseBuilder } from '../../common/schemas/response-builder.util';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
@@ -15,6 +14,7 @@ import { TokenService } from './services/token.service';
 import { SessionService } from './services/session.service';
 import { RevocationReason, UserStatus } from '@prisma/client';
 import { PrismaService } from 'src/infrastructure/postgres/prisma.service';
+import { ResponseBuilder } from 'src/core/schemas/response-builder.util';
 
 @Injectable()
 export class AuthService {

@@ -9,7 +9,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { KycRepository } from './kyc.repository';
 import { MediaRepository } from '../media/media.repository';
-import { AuditService } from '../../common/services/audit.service';
+import { AuditService } from '../../core/services/audit.service';
 import { PrismaService } from '../../infrastructure/postgres/prisma.service';
 import {
   KycStatus,
@@ -17,7 +17,6 @@ import {
   KycDocument,
   Media,
   MediaCategory,
-  MediaStatus,
 } from '@prisma/client';
 import { SubmitKycDto } from './dto/submit-kyc.dto';
 import { AttachDocumentDto } from './dto/attach-document.dto';
@@ -222,8 +221,7 @@ export class KycService {
         issuingCountry: document.issuingCountry ?? undefined,
         createdAt: document.createdAt,
         fileName: media.originalFileName,
-        fileSize: media.fileSize,
-        status: media.status,
+        fileSize: media.fileSize
       };
     } catch (error) {
       this.logger.error(
@@ -365,10 +363,6 @@ export class KycService {
         await this.prisma.media.updateMany({
           where: { id: { in: mediaIds } },
           data: {
-            status:
-              newStatus === KycStatus.APPROVED
-                ? MediaStatus.VERIFIED
-                : MediaStatus.REJECTED,
             verifiedBy: reviewerId,
             verifiedAt: new Date(),
           },
@@ -448,8 +442,7 @@ export class KycService {
         issuingCountry: doc.issuingCountry ?? undefined,
         createdAt: doc.createdAt,
         fileName: doc.media?.originalFileName || '',
-        fileSize: doc.media?.fileSize || 0,
-        status: doc.media?.status || MediaStatus.PENDING,
+        fileSize: doc.media?.fileSize || 0
       })) || [],
     };
   }

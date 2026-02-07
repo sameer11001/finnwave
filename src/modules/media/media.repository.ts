@@ -3,7 +3,6 @@ import { PrismaService } from '../../infrastructure/postgres/prisma.service';
 import {
   Media,
   MediaCategory,
-  MediaStatus,
   MediaType,
   Prisma,
 } from '@prisma/client';
@@ -36,7 +35,6 @@ export class MediaRepository {
     filters: {
       category?: MediaCategory;
       type?: MediaType;
-      status?: MediaStatus;
       skip?: number;
       take?: number;
     },
@@ -44,9 +42,8 @@ export class MediaRepository {
     const where: Prisma.MediaWhereInput = {
       uploadedBy: userId,
       ...(filters.category && { category: filters.category }),
-      ...(filters.type && { type: filters.type }),
-      ...(filters.status && { status: filters.status }),
-    };
+      ...(filters.type && { type: filters.type })
+        };
 
     const [data, total] = await Promise.all([
       this.prisma.media.findMany({
@@ -61,31 +58,7 @@ export class MediaRepository {
     return { data, total };
   }
 
-  async updateStatus(
-    id: string,
-    status: MediaStatus,
-    verifiedBy?: string,
-    rejectionReason?: string,
-  ): Promise<Media> {
-    return this.prisma.media.update({
-      where: { id },
-      data: {
-        status,
-        verifiedBy,
-        rejectionReason,
-        verifiedAt: status === MediaStatus.VERIFIED ? new Date() : null,
-      },
-    });
-  }
-
   async delete(id: string): Promise<Media> {
-    return this.prisma.media.update({
-      where: { id },
-      data: { status: MediaStatus.ARCHIVED },
-    });
-  }
-
-  async hardDelete(id: string): Promise<Media> {
     return this.prisma.media.delete({
       where: { id },
     });

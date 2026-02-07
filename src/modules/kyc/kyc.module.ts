@@ -5,10 +5,12 @@ import { KycRepository } from './kyc.repository';
 import { MediaModule } from '../media/media.module';
 import { InfrastructureModule } from '../../infrastructure/infrastructure.module';
 import { MongodbModule } from '../../infrastructure/mongodb/mongodb.module';
-import { AuditService } from '../../common/services/audit.service';
+import { AuditService } from '../../core/services/audit.service';
+import { CoreModule } from 'src/core/core.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [MediaModule, InfrastructureModule, MongodbModule],
+  imports: [MediaModule, InfrastructureModule, MongodbModule, CoreModule,AuthModule],
   controllers: [KycController],
   providers: [KycService, KycRepository, AuditService],
   exports: [KycService, KycRepository],
