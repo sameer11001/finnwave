@@ -73,7 +73,6 @@ export class MediaService {
         encryptedPath: storageResult.encryptedPath,
         fileHash: storageResult.fileHash,
         metadata: {
-          ...uploadMediaDto.metadata,
           iv: storageResult.iv,
           tag: storageResult.tag,
         },

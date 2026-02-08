@@ -166,7 +166,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token')
   @ApiOperation({ summary: 'Logout and revoke current session' })
   @ApiResponse({
     status: 200,

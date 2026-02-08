@@ -38,8 +38,7 @@ import { GetUser } from '../auth/decorators/get-user.decorator';
 
 @ApiTags('Media')
 @Controller('media')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
@@ -69,10 +68,6 @@ export class MediaController {
           ],
           description: 'Category of the media file',
         },
-        metadata: {
-          type: 'object',
-          description: 'Optional metadata as JSON',
-        },
       },
     },
   })
@@ -83,6 +78,7 @@ export class MediaController {
   })
   @ApiResponse({ status: 400, description: 'Invalid file or data' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,

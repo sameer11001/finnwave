@@ -16,9 +16,20 @@ async function bootstrap() {
     .setDescription('The FinnWave API description')
     .setVersion('1.0')
     .addTag('finnwave')
+    .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: 'header',
+    },
+    'access-token', // name
+    )
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('api/docs', app, documentFactory);
+  
 
   app.useGlobalPipes(
     new ValidationPipe({

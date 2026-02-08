@@ -17,11 +17,4 @@ export class UploadMediaDto {
   @IsEnum(MediaCategory)
   category: MediaCategory;
 
-  @ApiPropertyOptional({
-    description: 'Additional metadata as JSON',
-    example: { description: 'Passport front page' },
-  })
-  @IsOptional()
-  @IsObject()
-  metadata?: Record<string, any>;
 }
