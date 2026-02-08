@@ -5,10 +5,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
 import { HttpExceptionFilter } from './core/filters/http-exception.filter';
 import { TransformInterceptor } from './core/interceptors/transform.interceptor';
+import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
+import { CustomLoggerService } from './core/services/logger.service';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // Create custom logger
+  const customLogger = new CustomLoggerService();
+  customLogger.setContext('Bootstrap');
+
+  const app = await NestFactory.create(AppModule, {
+    logger: customLogger,
+  });
+
+  customLogger.log('Starting FinnWave application...');
 
   // Swagger Configuration
   const config = new DocumentBuilder()
@@ -29,6 +39,7 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('api/docs', app, documentFactory);
+  customLogger.log('Swagger documentation available at /api/docs');
   
 
   app.useGlobalPipes(
@@ -40,8 +51,16 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter());
 
-  app.useGlobalInterceptors(new TransformInterceptor());
+  // Add logging interceptor before transform interceptor
+  app.useGlobalInterceptors(new LoggingInterceptor(), new TransformInterceptor());
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  
+  customLogger.log(`Application is running on: http://localhost:${port}`);
+  customLogger.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  customLogger.log(`Log Level: ${process.env.LOG_LEVEL || 'auto'}`);
+  customLogger.log(`Debug Mode: ${customLogger.isDebugEnabled() ? 'ENABLED' : 'DISABLED'}`);
 }
 bootstrap();
+

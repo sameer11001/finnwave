@@ -1,17 +1,22 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Request } from 'express';
 import { AuditLog, AuditLogDocument } from 'src/infrastructure/mongodb/schemas/audit-log.schema';
+import { CustomLoggerService, LogContext } from './logger.service';
 
 @Injectable()
 export class AuditService {
-  private readonly logger = new Logger(AuditService.name);
+  private readonly logger: CustomLoggerService;
 
   constructor(
     @InjectModel(AuditLog.name)
     private readonly auditLogModel: Model<AuditLogDocument>,
-  ) {}
+  ) {
+    this.logger = new CustomLoggerService();
+    this.logger.setContext(LogContext.AUDIT);
+  }
+  
   async log(
     eventType: string,
     category: string,
@@ -24,6 +29,15 @@ export class AuditService {
     try {
       const ipAddress = req?.ip || req?.socket?.remoteAddress || 'unknown';
       const userAgent = req?.headers['user-agent'];
+
+      this.logger.debug(`Creating audit log: ${eventType}`, {
+        eventType,
+        category,
+        userId,
+        resourceId,
+        performedBy,
+        ipAddress,
+      });
 
       const auditLog = new this.auditLogModel({
         eventType,
@@ -40,12 +54,14 @@ export class AuditService {
 
       this.logger.log(
         `Audit log created: ${eventType} by ${performedBy} for user ${userId}`,
+        { eventType, userId, performedBy },
       );
     } catch (error) {
       // Don't throw - audit logging should not break the main flow
       this.logger.error(
         `Failed to create audit log: ${error.message}`,
         error.stack,
+        { eventType, userId, error: error.message },
       );
     }
   }

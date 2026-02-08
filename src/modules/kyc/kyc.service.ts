@@ -4,12 +4,12 @@ import {
   NotFoundException,
   ForbiddenException,
   ConflictException,
-  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { KycRepository } from './kyc.repository';
 import { MediaRepository } from '../media/media.repository';
 import { AuditService } from '../../core/services/audit.service';
+import { CustomLoggerService, LogContext } from '../../core/services/logger.service';
 import { PrismaService } from '../../infrastructure/postgres/prisma.service';
 import {
   KycStatus,
@@ -36,7 +36,7 @@ type KycSubmissionWithDocuments = KycSubmission & {
 
 @Injectable()
 export class KycService {
-  private readonly logger = new Logger(KycService.name);
+  private readonly logger: CustomLoggerService;
   private readonly minAge: number;
 
   constructor(
@@ -46,6 +46,8 @@ export class KycService {
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
   ) {
+    this.logger = new CustomLoggerService();
+    this.logger.setContext(LogContext.KYC);
     this.minAge = this.configService.get<number>('KYC_MIN_AGE') || 18;
   }
 
@@ -85,6 +87,12 @@ export class KycService {
       );
     }
 
+    this.logger.debug(`Submitting KYC for user ${userId}`, {
+      userId,
+      nationality: submitKycDto.nationality,
+      country: submitKycDto.country,
+    });
+
     try {
       // Create or update KYC submission
       const submission = await this.kycRepository.createSubmission({
@@ -120,11 +128,18 @@ export class KycService {
         req,
       );
 
-      this.logger.log(`KYC submitted: ${submission.id} by user ${userId}`);
+      this.logger.log(`KYC submitted: ${submission.id} by user ${userId}`, {
+        submissionId: submission.id,
+        userId,
+      });
 
       return this.toResponseDto(submission);
     } catch (error) {
-      this.logger.error(`Failed to submit KYC: ${error.message}`, error.stack);
+      this.logger.error(
+        `Failed to submit KYC: ${error.message}`,
+        error.stack,
+        { userId, error: error.message },
+      );
       throw new BadRequestException(`KYC submission failed: ${error.message}`);
     }
   }
@@ -210,6 +225,11 @@ export class KycService {
 
       this.logger.log(
         `Document attached: ${document.id} to KYC ${submission.id}`,
+        {
+          documentId: document.id,
+          submissionId: submission.id,
+          documentType: document.documentType,
+        },
       );
 
       return {
@@ -387,6 +407,12 @@ export class KycService {
 
       this.logger.log(
         `KYC ${reviewKycDto.action.toLowerCase()}ed: ${id} by reviewer ${reviewerId}`,
+        {
+          submissionId: id,
+          reviewerId,
+          action: reviewKycDto.action,
+          newStatus,
+        },
       );
 
       // Fetch updated submission
