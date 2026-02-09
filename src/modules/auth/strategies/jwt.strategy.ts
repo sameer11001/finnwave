@@ -20,13 +20,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JWTPayloadType) {
-
     if (!payload.sub || !payload.sid) {
       throw new UnauthorizedException('Invalid token payload');
-    } 
-    
+    }
+
     return {
-      userId: payload.sub,
+      id: payload.sub, // Changed from userId to id
       email: payload.email,
       sid: payload.sid,
     };

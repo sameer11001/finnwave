@@ -108,7 +108,7 @@ export class AuthService {
       email: user.email,
       sid: session.id,
       role: user.role?.name,
-  });
+    });
 
     return ResponseBuilder.success(
       {
@@ -169,5 +169,4 @@ export class AuthService {
       HttpStatus.OK,
     );
   }
-
 }

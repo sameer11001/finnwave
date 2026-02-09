@@ -42,13 +42,15 @@ export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   @Post('upload')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.CREATED)
+  @ApiBearerAuth('access-token')
   @ApiOperation({ summary: 'Upload a media file' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
       type: 'object',
-      required: ['file', 'category'],
+      required: ['file'],
       properties: {
         file: {
           type: 'string',
@@ -65,7 +67,8 @@ export class MediaController {
             'PROFILE_DOCUMENT',
             'OTHER',
           ],
-          description: 'Category of the media file',
+          description:
+            'Category of the media file (optional, defaults to OTHER)',
         },
       },
     },
@@ -80,19 +83,42 @@ export class MediaController {
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body() uploadMediaDto: UploadMediaDto,
     @GetUser('id') userId: string,
     @Req() req: Request,
   ): Promise<MediaResponseDto> {
+    const category = (req.body as any)?.category || 'OTHER';
+
+    const uploadMediaDto = new UploadMediaDto();
+    uploadMediaDto.category = category as any;
+
     return this.mediaService.uploadFile(file, uploadMediaDto, userId, req);
   }
 
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'List user media files' })
-  @ApiQuery({ name: 'category', required: false, enum: ['KYC_DOCUMENT', 'USER_AVATAR', 'TRANSACTION_RECEIPT', 'SUPPORT_ATTACHMENT', 'PROFILE_DOCUMENT', 'OTHER'] })
-  @ApiQuery({ name: 'type', required: false, enum: ['IMAGE', 'PDF', 'VIDEO', 'AUDIO', 'DOCUMENT', 'OTHER'] })
-  @ApiQuery({ name: 'status', required: false, enum: ['PENDING', 'VERIFIED', 'REJECTED', 'ARCHIVED'] })
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    enum: [
+      'KYC_DOCUMENT',
+      'USER_AVATAR',
+      'TRANSACTION_RECEIPT',
+      'SUPPORT_ATTACHMENT',
+      'PROFILE_DOCUMENT',
+      'OTHER',
+    ],
+  })
+  @ApiQuery({
+    name: 'type',
+    required: false,
+    enum: ['IMAGE', 'PDF', 'VIDEO', 'AUDIO', 'DOCUMENT', 'OTHER'],
+  })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    enum: ['PENDING', 'VERIFIED', 'REJECTED', 'ARCHIVED'],
+  })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
   @ApiResponse({
@@ -203,5 +229,4 @@ export class MediaController {
     const isAdmin = role === 'ADMIN' || role === 'OPERATOR';
     await this.mediaService.deleteMedia(id, userId, isAdmin, req);
   }
-  
 }

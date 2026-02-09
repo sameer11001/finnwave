@@ -10,13 +10,13 @@ import { ConfigService } from '@nestjs/config';
 import { MediaRepository } from './media.repository';
 import { IStorageService } from '../../infrastructure/storage/storage.interface';
 import { AuditService } from '../../core/services/audit.service';
-import {
-  Media,
-  MediaType,
-} from '@prisma/client';
+import { Media, MediaType } from '@prisma/client';
 import { UploadMediaDto } from './dto/upload-media.dto';
 import { ListMediaDto } from './dto/list-media.dto';
-import { MediaResponseDto, MediaListResponseDto } from './dto/media-response.dto';
+import {
+  MediaResponseDto,
+  MediaListResponseDto,
+} from './dto/media-response.dto';
 import { Request } from 'express';
 
 @Injectable()
@@ -48,6 +48,20 @@ export class MediaService {
     userId: string,
     req: Request,
   ): Promise<MediaResponseDto> {
+    // Debug logging
+    this.logger.log(`MediaService.uploadFile called`);
+    this.logger.log(
+      `File object: ${JSON.stringify({
+        exists: !!file,
+        originalname: file?.originalname,
+        mimetype: file?.mimetype,
+        size: file?.size,
+        hasBuffer: !!file?.buffer,
+        bufferLength: file?.buffer?.length,
+      })}`,
+    );
+    this.logger.log(`Category: ${uploadMediaDto.category}, UserId: ${userId}`);
+
     // Validate file
     this.validateFile(file);
 
@@ -98,7 +112,10 @@ export class MediaService {
 
       return this.toResponseDto(media);
     } catch (error) {
-      this.logger.error(`Failed to upload media: ${error.message}`, error.stack);
+      this.logger.error(
+        `Failed to upload media: ${error.message}`,
+        error.stack,
+      );
       throw new BadRequestException(`File upload failed: ${error.message}`);
     }
   }
@@ -127,19 +144,11 @@ export class MediaService {
     const media = await this.getMedia(id, userId, isAdmin);
 
     try {
-      // Extract IV and tag from metadata
-      const iv = (media.metadata as any)?.iv;
-      const tag = (media.metadata as any)?.tag;
-
-      if (!iv || !tag) {
-        throw new Error('Missing encryption metadata');
-      }
-
-      // Get file from storage
+      // Get file from storage (simplified - no encryption)
       const buffer = await (this.storageService as any).getFileWithMetadata(
-        media.encryptedPath,
-        iv,
-        tag,
+        media.encryptedPath, // Actually just the file path now
+        '', // iv not used
+        '', // tag not used
       );
 
       // Audit log
@@ -158,7 +167,10 @@ export class MediaService {
 
       return { buffer, media };
     } catch (error) {
-      this.logger.error(`Failed to download media: ${error.message}`, error.stack);
+      this.logger.error(
+        `Failed to download media: ${error.message}`,
+        error.stack,
+      );
       throw new BadRequestException(`File download failed: ${error.message}`);
     }
   }

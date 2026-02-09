@@ -3,13 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { IStorageService, StorageResult } from './storage.interface';
-import {
-  encryptFile,
-  decryptFile,
-  encryptPath,
-  decryptPath,
-  hashFile,
-} from '../../core/utils/encryption.util';
+import { hashFile } from '../../core/utils/encryption.util';
 import { MediaCategory } from '@prisma/client';
 
 @Injectable()
@@ -18,11 +12,11 @@ export class LocalStorageService implements IStorageService {
   private readonly storagePath: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.storagePath ='./uploads/temp'; // For local storage, we use a temp folder. In production, this should be configurable.
+    this.storagePath = './uploads/temp'; // For local storage, we use a temp folder. In production, this should be configurable.
   }
 
   /**
-   * Upload file to local storage with encryption
+   * Upload file to local storage (simplified - no encryption)
    */
   async uploadFile(
     file: Express.Multer.File,
@@ -30,6 +24,10 @@ export class LocalStorageService implements IStorageService {
     userId: string,
   ): Promise<StorageResult> {
     try {
+      this.logger.log(
+        `Upload request - UserId: ${userId}, File: ${file.originalname}`,
+      );
+
       // Generate unique file ID
       const fileId = this.generateFileId();
 
@@ -38,31 +36,26 @@ export class LocalStorageService implements IStorageService {
       const userPath = path.join(categoryPath, userId);
       await this.ensureDirectoryExists(userPath);
 
-      // Encrypt file
-      const { encrypted, iv, tag } = encryptFile(file.buffer);
+      // Save file directly (no encryption)
+      const fileName = `${fileId}${path.extname(file.originalname)}`;
+      const filePath = path.join(userPath, fileName);
 
-      // Generate file hash before encryption
+      await fs.writeFile(filePath, file.buffer);
+
+      // Generate file hash for integrity
       const fileHash = hashFile(file.buffer);
 
-      // Save encrypted file
-      const fileName = `${fileId}.enc`;
-      const filePath = path.join(userPath, fileName);
-      await fs.writeFile(filePath, encrypted);
-
-      // Encrypt path for database storage
-      const encryptedPath = encryptPath(filePath);
-
       this.logger.log(
-        `File uploaded successfully: ${file.originalname} (${fileHash})`,
+        `File uploaded successfully: ${file.originalname} to ${filePath}`,
       );
 
       return {
-        encryptedPath,
+        encryptedPath: filePath, // Not encrypted anymore, just the path
         fileHash,
         fileSize: file.size,
         mimeType: file.mimetype,
-        iv,
-        tag,
+        iv: '', // Not used anymore
+        tag: '', // Not used anymore
       };
     } catch (error) {
       this.logger.error(`Failed to upload file: ${error.message}`, error.stack);
@@ -71,22 +64,13 @@ export class LocalStorageService implements IStorageService {
   }
 
   /**
-   * Get file from storage and decrypt
+   * Get file from storage (simplified - no decryption)
    */
-  async getFile(encryptedPath: string): Promise<Buffer> {
+  async getFile(filePath: string): Promise<Buffer> {
     try {
-      // Decrypt path
-      const filePath = decryptPath(encryptedPath);
-
-      // Read encrypted file
-      const encrypted = await fs.readFile(filePath);
-
-      // Extract IV and tag from metadata (stored separately in DB)
-      // For now, we'll need to get these from the Media record
-      // This is a simplified version - in practice, pass iv and tag as parameters
-      throw new Error(
-        'getFile needs iv and tag parameters - update interface',
-      );
+      // Read file directly
+      const fileBuffer = await fs.readFile(filePath);
+      return fileBuffer;
     } catch (error) {
       this.logger.error(`Failed to get file: ${error.message}`, error.stack);
       throw new Error(`File retrieval failed: ${error.message}`);
@@ -94,24 +78,17 @@ export class LocalStorageService implements IStorageService {
   }
 
   /**
-   * Get file with IV and tag for decryption
+   * Get file with IV and tag for decryption (simplified - no decryption)
    */
   async getFileWithMetadata(
-    encryptedPath: string,
+    filePath: string,
     iv: string,
     tag: string,
   ): Promise<Buffer> {
     try {
-      // Decrypt path
-      const filePath = decryptPath(encryptedPath);
-
-      // Read encrypted file
-      const encrypted = await fs.readFile(filePath);
-
-      // Decrypt file
-      const decrypted = decryptFile(encrypted, iv, tag);
-
-      return decrypted;
+      // Read file directly (no decryption)
+      const fileBuffer = await fs.readFile(filePath);
+      return fileBuffer;
     } catch (error) {
       this.logger.error(`Failed to get file: ${error.message}`, error.stack);
       throw new Error(`File retrieval failed: ${error.message}`);
@@ -119,13 +96,10 @@ export class LocalStorageService implements IStorageService {
   }
 
   /**
-   * Delete file from storage
+   * Delete file from storage (simplified)
    */
-  async deleteFile(encryptedPath: string): Promise<void> {
+  async deleteFile(filePath: string): Promise<void> {
     try {
-      // Decrypt path
-      const filePath = decryptPath(encryptedPath);
-
       // Delete file
       await fs.unlink(filePath);
 
@@ -140,10 +114,7 @@ export class LocalStorageService implements IStorageService {
    * Get file URL (for local storage, returns the encrypted path)
    * In cloud storage implementation, this would return a signed URL
    */
-  async getFileUrl(
-    encryptedPath: string,
-    expiresIn?: number,
-  ): Promise<string> {
+  async getFileUrl(encryptedPath: string, expiresIn?: number): Promise<string> {
     // For local storage, we don't generate URLs
     // Files are served through the API with proper authentication
     return encryptedPath;
