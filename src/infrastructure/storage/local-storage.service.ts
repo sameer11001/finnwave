@@ -18,9 +18,7 @@ export class LocalStorageService implements IStorageService {
   private readonly storagePath: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.storagePath =
-      this.configService.get<string>('MEDIA_STORAGE_PATH') ||
-      '/var/finnwave/media';
+    this.storagePath ='./uploads/temp'; // For local storage, we use a temp folder. In production, this should be configurable.
   }
 
   /**

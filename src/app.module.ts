@@ -18,7 +18,7 @@ import { CoreModule } from './core/core.module';
     InfrastructureModule,
     FinnWaveModule
   ],
-  controllers: [AppController, UsersController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

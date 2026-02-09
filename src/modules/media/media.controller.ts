@@ -38,7 +38,6 @@ import { GetUser } from '../auth/decorators/get-user.decorator';
 
 @ApiTags('Media')
 @Controller('media')
-@ApiBearerAuth('access-token')
 export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
@@ -78,7 +77,6 @@ export class MediaController {
   })
   @ApiResponse({ status: 400, description: 'Invalid file or data' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
@@ -205,4 +203,5 @@ export class MediaController {
     const isAdmin = role === 'ADMIN' || role === 'OPERATOR';
     await this.mediaService.deleteMedia(id, userId, isAdmin, req);
   }
+  
 }
